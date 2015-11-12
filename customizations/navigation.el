@@ -47,7 +47,7 @@
 (ido-ubiquitous-mode 1)
 
 ;; Shows a list of buffers
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;;(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 
 ;; Enhances M-x to allow easier execution of commands. Provides
@@ -59,3 +59,37 @@
 
 ;; projectile everywhere!
 (projectile-global-mode)
+
+(defun keypad-recenter (arg)
+  (interactive "P")
+  (if (null arg)
+      (setq arg (cons nil nil)))
+  (recenter arg))
+
+(defvar numnav-mode-keymap (make-keymap) "numnav-mode keymap.")
+(define-key numnav-mode-keymap (kbd "<kp-1>") 'end-of-buffer)
+(define-key numnav-mode-keymap (kbd "<kp-2>") 'next-line)
+(define-key numnav-mode-keymap (kbd "<kp-3>") 'scroll-up)
+(define-key numnav-mode-keymap (kbd "<kp-4>") 'left-char)
+(define-key numnav-mode-keymap (kbd "<C-kp-4>") 'move-beginning-of-line)
+(define-key numnav-mode-keymap (kbd "<kp-5>") 'recenter-top-bottom)
+(define-key numnav-mode-keymap (kbd "<kp-6>") 'right-char)
+(define-key numnav-mode-keymap (kbd "<C-kp-6>") 'move-end-of-line)
+(define-key numnav-mode-keymap (kbd "<kp-7>") 'beginning-of-buffer)
+(define-key numnav-mode-keymap (kbd "<kp-8>") 'previous-line)
+(define-key numnav-mode-keymap (kbd "<kp-9>") 'scroll-down)
+
+;; Custom Minor Mode
+(define-minor-mode numnav-mode
+  "Doc description, yada yada yada."
+  ;; The initial value - Set to 1 to enable by default
+  1
+  ;; The indicator for the mode line.
+  " #nav"
+  ;; The minor mode keymap
+  numnav-mode-keymap
+  ;; Make mode global rather than buffer local
+  :global 1
+  )
+
+(global-set-key (kbd "<S-clear>") 'numnav-mode)

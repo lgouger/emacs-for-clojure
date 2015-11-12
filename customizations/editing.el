@@ -43,6 +43,8 @@
                                                "backups"))))
 (setq auto-save-default nil)
 
+;; undo
+(global-set-key (kbd "<C-backspace>") 'undo)
 
 ;; comments
 (defun toggle-comment-on-line ()
@@ -51,8 +53,6 @@
   (comment-or-uncomment-region (line-beginning-position) (line-end-position)))
 (global-set-key (kbd "C-;") 'toggle-comment-on-line)
 
-;; yay rainbows!
-(global-rainbow-delimiters-mode t)
 
 ;; use 2 spaces for tabs
 (defun die-tabs ()
