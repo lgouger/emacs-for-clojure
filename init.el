@@ -8,12 +8,12 @@
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("tromey" . "http://tromey.com/elpa/") t)
+;; (add-to-list 'package-archives
+;;              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;;              '("gnu" . "http://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-
-;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-;;                          ("marmalade" . "http://marmalade-repo.org/packages/")
-;;                          ("melpa" . "http://melpa-stable.milkbox.net/packages/")))
+             '("melpa" . "http://melpa.org/packages/") t)
 
 
 ;; Load and activate emacs packages. Do this first so that the
@@ -34,6 +34,12 @@
   '(;; makes handling lisp expressions much, much easier
     ;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
     ;; Paredit
+
+    ;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
+    company
+
+    ;; Python mode
+    jedi
 
     ;; key bindings and code colorization for Clojure
     ;; https://github.com/clojure-emacs/clojure-mode
@@ -127,10 +133,14 @@
 ;; For editing lisps
 (load "elisp-editing.el")
 
+;; for org-mode
+(load "setup-org.el")
+
 ;; Langauage-specific
 (load "setup-clojure.el")
 (load "setup-js.el")
 (load "setup-perl.el")
+(load "setup-python.el")
 
 ;; set automatically
 
@@ -142,7 +152,8 @@
  '(coffee-tab-width 2)
  '(custom-safe-themes
    (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
+    ("094f2c4dc01b7ebe70075ab7dba2e3f0fbab788af38ec574b2939c9454fed996" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

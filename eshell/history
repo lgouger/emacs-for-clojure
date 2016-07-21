@@ -1,0 +1,11 @@
+ls
+whoami
+echo $term
+echo $TERM
+set $TERM=vt100-color
+export TERM=vt100-colorp
+export TERM=vt100-color
+ls
+ls -l
+bash
+exit

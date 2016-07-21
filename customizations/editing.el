@@ -1,5 +1,9 @@
 ;; Customizations relating to editing a buffer.
 
+
+;; TABs are the devil's whitespace
+(setq-default indent-tabs-mode nil)
+
 ;; Key binding to use "hippie expand" for text autocompletion
 ;; http://www.emacswiki.org/emacs/HippieExpand
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -18,6 +22,9 @@
 ;; Highlight current line
 (global-hl-line-mode 1)
 
+;; company-mode everywhere (code completion)
+(global-company-mode)
+
 ;; Interactive search key bindings. By default, C-s runs
 ;; isearch-forward, so this swaps the bindings.
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -32,7 +39,7 @@
 ;; was when you previously visited the same file.
 ;; http://www.emacswiki.org/emacs/SavePlace
 (require 'saveplace)
-(setq-default save-place t)
+
 ;; keep track of saved places in ~/.emacs.d/places
 (setq save-place-file (concat user-emacs-directory "places"))
 
@@ -45,6 +52,10 @@
 
 ;; undo
 (global-set-key (kbd "<C-backspace>") 'undo)
+
+;; newline and indent
+(global-set-key (kbd "<C-return>") 'electric-newline-and-maybe-indent)
+(global-set-key (kbd "<M-return>") 'electric-newline-and-maybe-indent)
 
 ;; comments
 (defun toggle-comment-on-line ()

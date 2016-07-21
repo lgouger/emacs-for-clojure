@@ -36,9 +36,9 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/themes")
 
-(load-theme 'tomorrow-night t)
+;; (load-theme 'tomorrow-night t)
 ;; (load-theme 'material t)
-;; (load-theme 'monokai t)
+(load-theme 'monokai t)
 ;; (load-theme 'base16-monokai-dark t)
 ;; (load-theme 'darktooth t)
 ;; (load-theme `seti t)
@@ -50,7 +50,12 @@
 ;; Uncomment the lines below by removing semicolons and play with the
 ;; values in order to set the width (in characters wide) and height
 ;; (in lines high) Emacs will have whenever you start it
-(setq initial-frame-alist '((top . 0) (left . 0) (width . 140) (height . 54)))
+(setq initial-frame-alist '((top . 20) (left . 40) (width . 140) (height . 54)))
+
+;; powerline setup
+(require 'spaceline-config)
+(setq powerline-default-separator 'slant)
+(spaceline-emacs-theme)
 
 ;; These settings relate to how emacs interacts with your operating system
 (setq ;; makes killing/yanking interact with the clipboard
@@ -68,6 +73,10 @@
       ;; Shows all options when running apropos. For more info,
       ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Apropos.html
       apropos-do-all t
+
+      ;; force horizontal split for temp buffers  (top an bottom)
+      ;; change to zero (0) for vertical split.
+      split-width-threshold 99999
 
       ;; Mouse yank commands yank at point instead of at click.
       mouse-yank-at-point t)

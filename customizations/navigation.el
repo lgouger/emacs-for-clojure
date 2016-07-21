@@ -32,7 +32,7 @@
 (setq ido-enable-flex-matching t)
 
 ;; Turn this behavior off because it's annoying
-(setq ido-use-filename-at-point nil)
+(setq ido-use-filename-at-point t)
 
 ;; Don't try to match file across all "work" directories; only match files
 ;; in the current directory displayed in the minibuffer
@@ -56,6 +56,9 @@
 (setq smex-save-file (concat user-emacs-directory ".smex-items"))
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
+
+;; which-key on
+(which-key-mode)
 
 ;; projectile everywhere!
 (projectile-global-mode)

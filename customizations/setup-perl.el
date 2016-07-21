@@ -14,9 +14,9 @@
   ;; a more fine-grained approach as far as they are concerned
   (setq cperl-font-lock t)
   (setq cperl-electric-lbrace-space t)
-  (setq cperl-electric-parens nil)
-  (setq cperl-electric-linefeed nil)
-  (setq cperl-electric-keywords nil)
+  (setq cperl-electric-parens t)
+  (setq cperl-electric-linefeed t)
+  (setq cperl-electric-keywords t)
   (setq cperl-info-on-command-no-prompt t)
   (setq cperl-clobber-lisp-bindings t)
   (setq cperl-lazy-help-time 3)
@@ -28,9 +28,14 @@
   (set-face-background 'cperl-hash-face nil)
   (setq cperl-invalid-face nil)
 
-  (define-key cperl-mode-map (kbd "<C-return>") 'electric-newline-and-maybe-indent)
+  (set (make-local-variable 'eldoc-documentation-function)
+                     'my-cperl-eldoc-documentation-function))
 
-)
-
+(defun my-cperl-eldoc-documentation-function ()
+      "Return meaningful doc string for `eldoc-mode'."
+      (car
+       (let ((cperl-message-on-help-error nil))
+         (cperl-get-help))))
+    
 
 (provide 'perl-config)
