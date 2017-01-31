@@ -62,8 +62,10 @@
   "comment or uncomment current line"
   (interactive)
   (comment-or-uncomment-region (line-beginning-position) (line-end-position)))
+
 (global-set-key (kbd "C-;") 'toggle-comment-on-line)
 
+(global-set-key (kbd "M-C-q") 'indent-sexp)
 
 ;; use 2 spaces for tabs
 (defun die-tabs ()

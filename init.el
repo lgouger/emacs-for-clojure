@@ -4,8 +4,8 @@
 
 ;; Define package repositories
 (require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;;(add-to-list 'package-archives
+;;             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("tromey" . "http://tromey.com/elpa/") t)
 ;; (add-to-list 'package-archives
@@ -72,7 +72,14 @@
     tagedit
 
     ;; git integration
-    magit))
+    magit
+
+    ;; json editing
+    json-mode
+
+    ;; kotlin editing
+    kotlin-mode
+    ))
 
 ;; On OS X, an Emacs instance started from the graphical user
 ;; interface will have a different environment than a shell in a
@@ -152,7 +159,10 @@
  '(coffee-tab-width 2)
  '(custom-safe-themes
    (quote
-    ("094f2c4dc01b7ebe70075ab7dba2e3f0fbab788af38ec574b2939c9454fed996" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
+    ("094f2c4dc01b7ebe70075ab7dba2e3f0fbab788af38ec574b2939c9454fed996" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(package-selected-packages
+   (quote
+    (ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode jedi ido-ubiquitous groovy-mode exec-path-from-shell company-jedi coffee-mode clojure-mode-extra-font-locking clj-refactor))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -160,3 +170,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'narrow-to-region 'disabled nil)

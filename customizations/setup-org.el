@@ -5,11 +5,10 @@
 
 (setq org-hide-leading-stars t)
 
-(setq org-src-fontify-natively t)
+;; (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 
-(setq org-ellipsis "⤵")
-
+;; (setq org-ellipsis "⤵")
 
 (require 'ox-md)
 
@@ -20,3 +19,9 @@
 
 (setq org-log-into-drawer t)
 (setq org-log-done 'time)
+
+(define-key global-map "\C-cl" 'org-store-link)
+;; (define-key global-map "\C-ca" 'org-agenda)
+
+(setq org-agenda-files (list "~/org/work.org"
+                             "~/org/home.org"))

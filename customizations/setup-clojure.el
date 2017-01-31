@@ -30,21 +30,21 @@
             (define-key clojure-mode-map (kbd "<C-return>") 'electric-newline-and-maybe-indent)))
 
 ;; clj-refactor provides refactoring support for clojure projects
-(require 'clj-refactor)
+;; (require 'clj-refactor)
 
-(defun my-cljr-clojure-mode-hook ()
-  (clj-refactor-mode 1)
-  (yas-minor-mode 1) ; for adding require/use/import
-  (cljr-add-keybindings-with-prefix "C-c C-m"))
+;; (defun my-cljr-clojure-mode-hook ()
+  ;; (clj-refactor-mode 1)
+  ;; (yas-minor-mode 1) ; for adding require/use/import
+  ;; (cljr-add-keybindings-with-prefix "C-c C-m"))
 
-(add-hook 'clojure-mode-hook #'my-cljr-clojure-mode-hook)
+;; (add-hook 'clojure-mode-hook #'my-cljr-clojure-mode-hook)
 
 ;;;;
 ;; Cider
 ;;;;
 
 ;; provides minibuffer documentation for the code you're typing into the repl
-(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
 ;; go right to the REPL buffer when it's finished connecting
 (setq cider-repl-pop-to-buffer-on-connect t)

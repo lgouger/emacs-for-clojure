@@ -26,7 +26,7 @@
       (setq mac-option-modifier 'super)))
 
 (setq scroll-preserve-screen-position t)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 4)))
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 4) ))
 
 ;; Color Themes
 ;; Read http://batsov.com/articles/2012/02/19/color-theming-in-emacs-reloaded/
@@ -54,7 +54,7 @@
 
 ;; powerline setup
 (require 'spaceline-config)
-(setq powerline-default-separator 'slant)
+(setq powerline-default-separator 'utf-8)
 (spaceline-emacs-theme)
 
 ;; These settings relate to how emacs interacts with your operating system
