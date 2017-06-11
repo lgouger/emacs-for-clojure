@@ -27,7 +27,8 @@
                 (1 font-lock-keyword-face))))
             (define-clojure-indent (fact 1))
             (define-clojure-indent (facts 1))
-            (define-key clojure-mode-map (kbd "<C-return>") 'electric-newline-and-maybe-indent)))
+            (define-key clojure-mode-map (kbd "<C-return>") 'electric-newline-and-maybe-indent)
+            (define-key clojure-mode-map (kbd "<C-/>") 'comment-or-uncomment-region) ))
 
 ;; clj-refactor provides refactoring support for clojure projects
 ;; (require 'clj-refactor)

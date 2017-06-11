@@ -26,7 +26,10 @@
       (setq mac-option-modifier 'super)))
 
 (setq scroll-preserve-screen-position t)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 4) ))
+
+(custom-set-variables
+ '(mouse-wheel-scroll-amount (quote (1 ((shift) . 4) ((control))))))
+(mouse-wheel-mode 1)
 
 ;; Color Themes
 ;; Read http://batsov.com/articles/2012/02/19/color-theming-in-emacs-reloaded/
