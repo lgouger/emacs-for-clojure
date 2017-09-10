@@ -3,7 +3,7 @@
 ;;;;
 
 ;; Enable paredit for Clojure
-;; (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+(add-hook 'clojure-mode-hook 'enable-paredit-mode)
 
 ;; enable rainbow delimiters in clojure
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
@@ -11,6 +11,9 @@
 ;; This is useful for working with camel-case tokens, like names of
 ;; Java classes (e.g. JavaClassName)
 (add-hook 'clojure-mode-hook 'subword-mode)
+
+;; YASnippet minor mode -- re-enable if global yasnippet mode disabled
+;; (add-hook 'clojure-mode-hook #'yas-minor-mode)
 
 ;; A little more syntax highlighting
 (require 'clojure-mode-extra-font-locking)
@@ -43,6 +46,8 @@
 ;;;;
 ;; Cider
 ;;;;
+;; Change which repl to run while editing Clojurescript files
+(setq cider-cljs-lein-repl "(do (require 'figwheel-sidecar.repl-api) (figwheel-sidecar.repl-api/start-figwheel!) (figwheel-sidecar.repl-api/cljs-repl))")
 
 ;; provides minibuffer documentation for the code you're typing into the repl
 ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
@@ -61,7 +66,7 @@
 (setq cider-repl-wrap-history t)
 
 ;; enable paredit in your REPL
-;; (add-hook 'cider-repl-mode-hook 'paredit-mode)
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
 
 ;; Use clojure mode for other extensions
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))

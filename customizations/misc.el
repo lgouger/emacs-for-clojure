@@ -1,5 +1,5 @@
 ;; Changes all yes/no questions to y/n type
-(fset 'yes-or-no-p 'y-or-n-p)
+;;; (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; shell scripts
 (setq-default sh-basic-offset 2)
@@ -12,3 +12,4 @@
 (setq inhibit-startup-message t)
 
 (global-set-key (kbd "C-x g") 'magit-status)
+(setq magit-completing-read-function 'magit-ido-completing-read)

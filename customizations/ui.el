@@ -27,9 +27,20 @@
 
 (setq scroll-preserve-screen-position t)
 
-(custom-set-variables
- '(mouse-wheel-scroll-amount (quote (1 ((shift) . 4) ((control))))))
+
+;; (custom-set-variables
+;;  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 4) ((control))))))
+;; (mouse-wheel-mode 1)
+
+;; scroll one line at a time (less "jumpy" than defaults)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-factor '(1 ((double) . 2) ((triple) . 3))) 
+(setq mouse-wheel-progressive-speed t) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (mouse-wheel-mode 1)
+   
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+
 
 ;; Color Themes
 ;; Read http://batsov.com/articles/2012/02/19/color-theming-in-emacs-reloaded/

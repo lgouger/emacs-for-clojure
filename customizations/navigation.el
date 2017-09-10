@@ -26,13 +26,14 @@
 ;; name, ido will narrow down the list of buffers to match the text
 ;; you've typed in
 ;; http://www.emacswiki.org/emacs/InteractivelyDoThings
-(ido-mode t)
+(ido-mode 1)
+(ido-everywhere 1)
 
 ;; This allows partial matches, e.g. "tl" will match "Tyrion Lannister"
 (setq ido-enable-flex-matching t)
 
 ;; Turn this behavior off because it's annoying
-(setq ido-use-filename-at-point t)
+(setq ido-use-filename-at-point nil)
 
 ;; Don't try to match file across all "work" directories; only match files
 ;; in the current directory displayed in the minibuffer
@@ -40,14 +41,18 @@
 
 ;; Includes buffer names of recently open files, even if they're not
 ;; open now
-(setq ido-use-virtual-buffers t)
+(setq ido-use-virtual-buffers nil)
 
 ;; This enables ido in all contexts where it could be useful, not just
 ;; for selecting buffer and file names
 (ido-ubiquitous-mode 1)
 
 ;; Shows a list of buffers
-;;(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+
+;; Prevent Control-Z from hiding the window, use C-x C-z
+(global-unset-key (kbd "C-z"))
 
 
 ;; Enhances M-x to allow easier execution of commands. Provides
@@ -81,6 +86,8 @@
 (define-key numnav-mode-keymap (kbd "<kp-7>") 'beginning-of-buffer)
 (define-key numnav-mode-keymap (kbd "<kp-8>") 'previous-line)
 (define-key numnav-mode-keymap (kbd "<kp-9>") 'scroll-down)
+(define-key numnav-mode-keymap (kbd "<kp-add>") 'compilation-next-error)
+(define-key numnav-mode-keymap (kbd "<kp-subtract>") 'compilation-previous-error)
 
 ;; Custom Minor Mode
 (define-minor-mode numnav-mode

@@ -20,10 +20,16 @@
 (show-paren-mode 1)
 
 ;; Highlight current line
-(global-hl-line-mode 1)
+(global-hl-line-mode 0)
 
 ;; company-mode everywhere (code completion)
 (global-company-mode)
+
+;; Setup the YASnippet stuff
+(require 'yasnippet)
+(add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
+; ;(yas-reload-all)
+(yas-global-mode 1)
 
 ;; Interactive search key bindings. By default, C-s runs
 ;; isearch-forward, so this swaps the bindings.
@@ -56,6 +62,10 @@
 ;; newline and indent
 (global-set-key (kbd "<C-return>") 'electric-newline-and-maybe-indent)
 (global-set-key (kbd "<M-return>") 'electric-newline-and-maybe-indent)
+
+;; 
+(global-set-key (kbd "<M-SPC>") 'cycle-spacing)
+
 
 ;; comments
 (defun toggle-comment-on-line ()

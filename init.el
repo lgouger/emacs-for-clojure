@@ -4,16 +4,20 @@
 
 ;; Define package repositories
 (require 'package)
-;;(add-to-list 'package-archives
-;;             '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives
-             '("tromey" . "http://tromey.com/elpa/") t)
 ;; (add-to-list 'package-archives
-;;              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;;              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 ;; (add-to-list 'package-archives
-;;              '("gnu" . "http://elpa.gnu.org/packages/") t)
+;;              '("tromey" . "http://tromey.com/elpa/") t)
+;; (add-to-list 'package-archives
+;;              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
+
+;; (add-to-list 'package-archives
+;;              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+
+;; (add-to-list 'package-archives
+;;              '("gnu" . "http://elpa.gnu.org/packages/") t)
 
 
 ;; Load and activate emacs packages. Do this first so that the
@@ -27,13 +31,21 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+;; Define he following variables to remove the compile-log warnings
+;; when defining ido-ubiquitous
+(defvar ido-cur-item nil)
+(defvar ido-default-item nil)
+(defvar ido-cur-list nil)
+(defvar predicate nil)
+(defvar inherit-input-method nil)
+
 ;; The packages you want installed. You can also install these
 ;; manually with M-x package-install
 ;; Add in your own as you wish:
 (defvar my-packages
   '(;; makes handling lisp expressions much, much easier
     ;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
-    ;; Paredit
+    paredit
 
     ;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
     company
@@ -48,6 +60,9 @@
     ;; extra syntax highlighting for clojure
     clojure-mode-extra-font-locking
 
+    ;; snippets for clojure
+    clojure-snippets
+
     ;; integration with a Clojure REPL
     ;; https://github.com/clojure-emacs/cider
     cider
@@ -55,7 +70,7 @@
     ;; allow ido usage in as many contexts as possible. see
     ;; customizations/navigation.el line 23 for a description
     ;; of ido
-    ido-ubiquitous
+    ido-completing-read+
 
     ;; Enhances M-x to allow easier execution of commands. Provides
     ;; a filterable list of possible commands in the minibuffer
@@ -79,6 +94,11 @@
 
     ;; kotlin editing
     kotlin-mode
+
+    racket-mode
+
+    ;; html editing
+    emmet-mode
     ))
 
 ;; On OS X, an Emacs instance started from the graphical user
@@ -162,7 +182,7 @@
     ("094f2c4dc01b7ebe70075ab7dba2e3f0fbab788af38ec574b2939c9454fed996" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(package-selected-packages
    (quote
-    (ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode jedi ido-ubiquitous groovy-mode exec-path-from-shell company-jedi coffee-mode clojure-mode-extra-font-locking clj-refactor))))
+    (emmet-mode racket-mode auto-yasnippet clojure-snippets ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode jedi ido-ubiquitous groovy-mode exec-path-from-shell company-jedi coffee-mode clojure-mode-extra-font-locking clj-refactor))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
