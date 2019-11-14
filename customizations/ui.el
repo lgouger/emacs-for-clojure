@@ -20,10 +20,8 @@
   (scroll-bar-mode -1))
 
 ;; swap the default modifier keys
-(if (eq system-type 'darwin)
-    (progn
-      (setq mac-command-modifier 'meta)
-      (setq mac-option-modifier 'super)))
+(when (eq system-type 'darwin)
+  (set-face-attribute 'default nil :family "Hasklig"))
 
 (setq scroll-preserve-screen-position t)
 
@@ -52,7 +50,8 @@
 
 ;; (load-theme 'tomorrow-night t)
 ;; (load-theme 'material t)
-(load-theme 'monokai t)
+;; (load-theme 'monokai t)
+(load-theme 'hybrid t)
 ;; (load-theme 'base16-monokai-dark t)
 ;; (load-theme 'darktooth t)
 ;; (load-theme `seti t)

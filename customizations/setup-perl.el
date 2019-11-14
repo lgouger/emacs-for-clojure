@@ -14,7 +14,7 @@
   ;; a more fine-grained approach as far as they are concerned
   (setq cperl-font-lock t)
   (setq cperl-electric-lbrace-space t)
-  (setq cperl-electric-parens t)
+  (setq cperl-electric-parens nil)
   (setq cperl-electric-linefeed t)
   (setq cperl-electric-keywords t)
   (setq cperl-info-on-command-no-prompt t)
@@ -29,7 +29,11 @@
   (setq cperl-invalid-face nil)
 
   (set (make-local-variable 'eldoc-documentation-function)
-                     'my-cperl-eldoc-documentation-function))
+                     'my-cperl-eldoc-documentation-function)
+
+  (define-key cperl-mode-map (kbd "C-<return>") 'cperl-linefeed)
+  (define-key cperl-mode-map (kbd "M-<return>") 'cperl-linefeed)
+  )
 
 (defun my-cperl-eldoc-documentation-function ()
       "Return meaningful doc string for `eldoc-mode'."

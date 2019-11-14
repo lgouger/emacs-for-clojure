@@ -22,3 +22,8 @@
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 
+(add-hook 'elisp-mode-mode-hook
+          (lambda ()
+            (define-key emacs-lisp-mode-map (kbd "C-<return>") 'paredit-newline)
+            (define-key emacs-lisp-mode-map (kbd "M-<return>") 'paredit-newline)
+            (define-key emacs-lisp-mode-map (kbd "C-/") 'comment-or-uncomment-region) ))

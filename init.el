@@ -1,24 +1,20 @@
-;;;;
+;;;
 ;; Packages
 ;;;;
 
 ;; Define package repositories
 (require 'package)
-;; (add-to-list 'package-archives
-;;              '("marmalade" . "http://marmalade-repo.org/packages/") t)
-;; (add-to-list 'package-archives
-;;              '("tromey" . "http://tromey.com/elpa/") t)
-;; (add-to-list 'package-archives
-;;              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
+
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/"))
 
-;; (add-to-list 'package-archives
-;;              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
-;; (add-to-list 'package-archives
-;;              '("gnu" . "http://elpa.gnu.org/packages/") t)
-
+(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+(add-to-list 'package-pinned-packages '(ac-cider . "melpa-stable") t)
 
 ;; Load and activate emacs packages. Do this first so that the
 ;; packages are loaded before you start trying to modify them.
@@ -42,30 +38,35 @@
 ;; The packages you want installed. You can also install these
 ;; manually with M-x package-install
 ;; Add in your own as you wish:
-(defvar my-packages
-  '(;; makes handling lisp expressions much, much easier
-    ;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
-    paredit
-
+(setq my-packages
+  '(material-theme
+    
     ;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
     company
-
+    
     ;; Python mode
-    jedi
+    elpy
+    flycheck
+    py-autopep8
+
+    ;; makes handling lisp expressions much, much easier
+    ;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
+    paredit
 
     ;; key bindings and code colorization for Clojure
     ;; https://github.com/clojure-emacs/clojure-mode
     clojure-mode
 
     ;; extra syntax highlighting for clojure
-    clojure-mode-extra-font-locking
+    ;; clojure-mode-extra-font-locking
 
     ;; snippets for clojure
-    clojure-snippets
+    ;; clojure-snippets
 
     ;; integration with a Clojure REPL
     ;; https://github.com/clojure-emacs/cider
     cider
+    ac-cider
 
     ;; allow ido usage in as many contexts as possible. see
     ;; customizations/navigation.el line 23 for a description
@@ -92,13 +93,21 @@
     ;; json editing
     json-mode
 
+    ;; yaml editing
+    yaml-mode
+
     ;; kotlin editing
     kotlin-mode
 
-    racket-mode
+    ;; racket editing
+    ;; racket-mode
 
     ;; html editing
-    emmet-mode
+    ;; emmet-mode
+
+    ;; misc
+    which-key
+    spaceline
     ))
 
 ;; On OS X, an Emacs instance started from the graphical user
@@ -109,8 +118,14 @@
 ;; This library works around this problem by copying important
 ;; environment variables from the user's shell.
 ;; https://github.com/purcell/exec-path-from-shell
-(if (eq system-type 'darwin)
-    (add-to-list 'my-packages 'exec-path-from-shell))
+
+;; (if (eq system-type 'darwin)
+;;    (add-to-list 'my-packages 'exec-path-from-shell))
+
+;; (mapc #'(lambda (package)
+;;           (unless (package-installed-p package)
+;;             (package-install package)))
+;;       my-packages)
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -166,6 +181,7 @@
 ;; Langauage-specific
 (load "setup-clojure.el")
 (load "setup-js.el")
+(load "setup-json.el")
 (load "setup-perl.el")
 (load "setup-python.el")
 
@@ -180,9 +196,13 @@
  '(custom-safe-themes
    (quote
     ("094f2c4dc01b7ebe70075ab7dba2e3f0fbab788af38ec574b2939c9454fed996" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(org-agenda-files (quote ("~/org/home.org")))
  '(package-selected-packages
    (quote
-    (emmet-mode racket-mode auto-yasnippet clojure-snippets ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode jedi ido-ubiquitous groovy-mode exec-path-from-shell company-jedi coffee-mode clojure-mode-extra-font-locking clj-refactor))))
+    (ac-cider spinner cider cider-decompile basic-mode flycheck py-autopep8 elpy yaml-mode org-present emmet-mode racket-mode auto-yasnippet clojure-snippets ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode ido-ubiquitous groovy-mode exec-path-from-shell coffee-mode clojure-mode-extra-font-locking clj-refactor))))
+
+
+(put 'narrow-to-region 'disabled nil)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -190,4 +210,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(put 'narrow-to-region 'disabled nil)

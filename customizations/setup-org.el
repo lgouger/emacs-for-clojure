@@ -1,7 +1,9 @@
 
+(require 'org-bullets)
+
 (add-hook 'org-mode-hook
           (lambda ()
-            (org-bullets-mode t)))
+            (org-bullets-mode 1)))
 
 (setq org-hide-leading-stars t)
 
@@ -15,13 +17,13 @@
 (setq org-html-postamble nil)
 
 (setq org-todo-keywords
-       '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
 
 (setq org-log-into-drawer t)
 (setq org-log-done 'time)
 
 (define-key global-map "\C-cl" 'org-store-link)
-;; (define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-ca" 'org-agenda)
 
 (setq org-agenda-files (list "~/org/work.org"
                              "~/org/home.org"))
