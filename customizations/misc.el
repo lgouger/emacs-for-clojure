@@ -11,5 +11,11 @@
 ;; Go straight to scratch buffer on startup
 (setq inhibit-startup-message t)
 
-(global-set-key (kbd "C-x g") 'magit-status)
-(setq magit-completing-read-function 'magit-ido-completing-read)
+(use-package magit
+  :bind
+  ("C-x g" . magit-status)
+  :init
+  (setq magit-completing-read-function 'magit-ido-completing-read))
+
+;; (global-set-key (kbd "C-x g") 'magit-status)
+;; (setq magit-completing-read-function 'magit-ido-completing-read)

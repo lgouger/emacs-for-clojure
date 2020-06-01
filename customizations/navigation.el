@@ -9,15 +9,18 @@
 ;; The forward naming method includes part of the file's directory
 ;; name at the beginning of the buffer name
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.html
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
+(use-package uniquify
+  :init
+  (setq uniquify-buffer-name-style 'forward))
 
 ;; Turn on recent file mode so that you can more easily switch to
 ;; recently edited files when you first start emacs
-(setq recentf-save-file (concat user-emacs-directory ".recentf"))
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-menu-items 40)
+(use-package recentf
+  :init
+  (setq recentf-save-file (concat user-emacs-directory ".recentf"))
+  (setq recentf-max-menu-items 40)
+  :config
+  (recentf-mode 1))
 
 
 ;; ido-mode allows you to more easily navigate choices. For example,
@@ -26,29 +29,36 @@
 ;; name, ido will narrow down the list of buffers to match the text
 ;; you've typed in
 ;; http://www.emacswiki.org/emacs/InteractivelyDoThings
-(ido-mode 1)
-(ido-everywhere 1)
+(use-package ido
+  :init
+  ;; This allows partial matches, e.g. "tl" will match "Tyrion Lannister"
+  (setq ido-enable-flex-matching t)
 
-;; This allows partial matches, e.g. "tl" will match "Tyrion Lannister"
-(setq ido-enable-flex-matching t)
+  ;; Turn this behavior off because it's annoying
+  (setq ido-use-filename-at-point nil)
 
-;; Turn this behavior off because it's annoying
-(setq ido-use-filename-at-point nil)
+  ;; Don't try to match file across all "work" directories; only match files
+  ;; in the current directory displayed in the minibuffer
+  (setq ido-auto-merge-work-directories-length -1)
 
-;; Don't try to match file across all "work" directories; only match files
-;; in the current directory displayed in the minibuffer
-(setq ido-auto-merge-work-directories-length -1)
+  ;; Includes buffer names of recently open files, even if they're not
+  ;; open now
+  (setq ido-use-virtual-buffers nil)
 
-;; Includes buffer names of recently open files, even if they're not
-;; open now
-(setq ido-use-virtual-buffers nil)
+  :config
+  (ido-mode t)
+  (ido-everywhere t)
 
-;; This enables ido in all contexts where it could be useful, not just
-;; for selecting buffer and file names
-(ido-ubiquitous-mode 1)
+  ;; This enables ido in all contexts where it could be useful, not just
+  ;; for selecting buffer and file names
+  (ido-ubiquitous-mode t))
 
+
+(use-package ibuffer
+     :bind
+     ("C-x C-b" . ibuffer))
 ;; Shows a list of buffers
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;; (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 
 ;; Prevent Control-Z from hiding the window, use C-x C-z
@@ -58,15 +68,24 @@
 ;; Enhances M-x to allow easier execution of commands. Provides
 ;; a filterable list of possible commands in the minibuffer
 ;; http://www.emacswiki.org/emacs/Smex
-(setq smex-save-file (concat user-emacs-directory ".smex-items"))
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
+;; (setq smex-save-file (concat user-emacs-directory ".smex-items"))
+;; (smex-initialize)
+;; (global-set-key (kbd "M-x") 'smex)
+
+(use-package smex
+  :ensure t
+  :init
+  (setq smex-save-file (concat user-emacs-directory ".smex-items"))
+  :bind ("M-x" . smex)
+  :config (smex-initialize))
 
 ;; which-key on
 (which-key-mode)
 
-;; projectile everywhere!
-(projectile-global-mode)
+(use-package projectile
+  :config
+  ;; projectile everywhere!
+  (projectile-global-mode))
 
 (defun keypad-recenter (arg)
   (interactive "P")

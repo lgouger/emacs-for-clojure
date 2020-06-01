@@ -9,3 +9,5 @@ projectile.cache
 auto-save-list
 backups
 network-security.data
+*.pyc
+*.elc

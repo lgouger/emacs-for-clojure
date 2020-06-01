@@ -10,15 +10,6 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 
-(add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/"))
-
-(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
-(add-to-list 'package-pinned-packages '(ac-cider . "melpa-stable") t)
-
-;; Load and activate emacs packages. Do this first so that the
-;; packages are loaded before you start trying to modify them.
-;; This also sets the load path.
 (package-initialize)
 
 ;; Download the ELPA archive description if needed.
@@ -39,76 +30,77 @@
 ;; manually with M-x package-install
 ;; Add in your own as you wish:
 (setq my-packages
-  '(material-theme
+      '(use-package
+         diminish
+         delight
+     
+         ;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
+         company
     
-    ;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
-    company
-    
-    ;; Python mode
-    elpy
-    flycheck
-    py-autopep8
+         ;; Python mode
+         elpy
+         flycheck
+         py-autopep8
+         pipenv
 
-    ;; makes handling lisp expressions much, much easier
-    ;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
-    paredit
+         ;; makes handling lisp expressions much, much easier
+         ;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
+         paredit
 
-    ;; key bindings and code colorization for Clojure
-    ;; https://github.com/clojure-emacs/clojure-mode
-    clojure-mode
+         ;; key bindings and code colorization for Clojure
+         ;; https://github.com/clojure-emacs/clojure-mode
+         clojure-mode
 
-    ;; extra syntax highlighting for clojure
-    ;; clojure-mode-extra-font-locking
+         ;; extra syntax highlighting for clojure
+         ;; clojure-mode-extra-font-locking
 
-    ;; snippets for clojure
-    ;; clojure-snippets
+         ;; snippets for clojure
+         ;; clojure-snippets
 
-    ;; integration with a Clojure REPL
-    ;; https://github.com/clojure-emacs/cider
-    cider
-    ac-cider
+         ;; integration with a Clojure REPL
+         ;; https://github.com/clojure-emacs/cider
+         cider
+         ac-cider
 
-    ;; allow ido usage in as many contexts as possible. see
-    ;; customizations/navigation.el line 23 for a description
-    ;; of ido
-    ido-completing-read+
+         ;; allow ido usage in as many contexts as possible. see
+         ;; customizations/navigation.el line 23 for a description
+         ;; of ido
+         ido-completing-read+
 
-    ;; Enhances M-x to allow easier execution of commands. Provides
-    ;; a filterable list of possible commands in the minibuffer
-    ;; http://www.emacswiki.org/emacs/Smex
-    smex
+         ;; Enhances M-x to allow easier execution of commands. Provides
+         ;; a filterable list of possible commands in the minibuffer
+         ;; http://www.emacswiki.org/emacs/Smex
+         smex
 
-    ;; project navigation
-    projectile
+         ;; project navigation
+         projectile
 
-    ;; colorful parenthesis matching
-    rainbow-delimiters
+         ;; colorful parenthesis matching
+         rainbow-delimiters
 
-    ;; edit html tags like sexps
-    tagedit
+         ;; edit html tags like sexps
+         tagedit
 
-    ;; git integration
-    magit
+         ;; git integration
+         magit
 
-    ;; json editing
-    json-mode
+         ;; json editing
+         json-mode
 
-    ;; yaml editing
-    yaml-mode
+         ;; yaml editing
+         yaml-mode
 
-    ;; kotlin editing
-    kotlin-mode
+         ;; kotlin editing
+         kotlin-mode
 
-    ;; racket editing
-    ;; racket-mode
+         ;; Terraform and HCL
+         hcl-mode
+         terraform-mode
 
-    ;; html editing
-    ;; emmet-mode
-
-    ;; misc
-    which-key
-    spaceline
-    ))
+         ;; misc
+         which-key
+         spaceline
+         ))
 
 ;; On OS X, an Emacs instance started from the graphical user
 ;; interface will have a different environment than a shell in a
@@ -119,8 +111,8 @@
 ;; environment variables from the user's shell.
 ;; https://github.com/purcell/exec-path-from-shell
 
-;; (if (eq system-type 'darwin)
-;;    (add-to-list 'my-packages 'exec-path-from-shell))
+(if (eq system-type 'darwin)
+   (add-to-list 'my-packages 'exec-path-from-shell))
 
 ;; (mapc #'(lambda (package)
 ;;           (unless (package-installed-p package)
@@ -173,7 +165,7 @@
 (load "misc.el")
 
 ;; For editing lisps
-(load "elisp-editing.el")
+(load "setup-elisp.el")
 
 ;; for org-mode
 (load "setup-org.el")
@@ -181,7 +173,7 @@
 ;; Langauage-specific
 (load "setup-clojure.el")
 (load "setup-js.el")
-(load "setup-json.el")
+;; (load "setup-json.el")
 (load "setup-perl.el")
 (load "setup-python.el")
 
@@ -192,14 +184,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode nil)
  '(coffee-tab-width 2)
  '(custom-safe-themes
    (quote
     ("094f2c4dc01b7ebe70075ab7dba2e3f0fbab788af38ec574b2939c9454fed996" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(menu-bar-mode nil)
  '(org-agenda-files (quote ("~/org/home.org")))
  '(package-selected-packages
    (quote
-    (ac-cider spinner cider cider-decompile basic-mode flycheck py-autopep8 elpy yaml-mode org-present emmet-mode racket-mode auto-yasnippet clojure-snippets ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode ido-ubiquitous groovy-mode exec-path-from-shell coffee-mode clojure-mode-extra-font-locking clj-refactor))))
+    (base16-theme immaterial-theme auto-org-md yasnippet-snippets zenburn-theme hcl-mode terraform-mode uniquify pipenv volatile-highlights ac-cider spinner cider cider-decompile basic-mode flycheck py-autopep8 elpy yaml-mode org-present emmet-mode racket-mode auto-yasnippet clojure-snippets ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode ido-ubiquitous groovy-mode exec-path-from-shell coffee-mode clojure-mode-extra-font-locking clj-refactor)))
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 
 
 (put 'narrow-to-region 'disabled nil)

@@ -9,3 +9,7 @@ ls
 ls -l
 bash
 exit
+ls
+echo $PATH
+echo $PATH
+which clojure

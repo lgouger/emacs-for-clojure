@@ -5,7 +5,8 @@
 ;; preferences
 
 ;; Turn off the menu bar at the top of each frame because it's distracting
-(menu-bar-mode -1)
+(when (fboundp 'menu-bar-mode)
+  (menu-bar-mode -1))
 
 ;; Show line numbers
 (global-linum-mode)
@@ -21,7 +22,7 @@
 
 ;; swap the default modifier keys
 (when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :family "Hasklig"))
+  (set-face-attribute 'default nil :family "JetBrains Mono" :height 150))
 
 (setq scroll-preserve-screen-position t)
 
@@ -51,14 +52,19 @@
 ;; (load-theme 'tomorrow-night t)
 ;; (load-theme 'material t)
 ;; (load-theme 'monokai t)
-(load-theme 'hybrid t)
+;; (load-theme 'hybrid t)
 ;; (load-theme 'base16-monokai-dark t)
 ;; (load-theme 'darktooth t)
 ;; (load-theme `seti t)
 ;; (load-theme `warm-night t)
 
+(use-package base16-theme
+  :ensure t
+  :config
+  (load-theme 'base16-tomorrow-night t))
+
 ;; increase font size for better readability
-(set-face-attribute 'default nil :height 140)
+;; (set-face-attribute 'default nil :font "JetBrains Mono" :height 150)
 
 ;; Uncomment the lines below by removing semicolons and play with the
 ;; values in order to set the width (in characters wide) and height
@@ -66,9 +72,10 @@
 (setq initial-frame-alist '((top . 20) (left . 40) (width . 140) (height . 54)))
 
 ;; powerline setup
-(require 'spaceline-config)
-(setq powerline-default-separator 'utf-8)
-(spaceline-emacs-theme)
+(use-package spaceline-config
+  :config
+  (setq powerline-default-separator 'utf-8)
+  (spaceline-emacs-theme))
 
 ;; These settings relate to how emacs interacts with your operating system
 (setq ;; makes killing/yanking interact with the clipboard
@@ -101,7 +108,7 @@
 (setq-default frame-title-format "%b (%f)")
 
 ;; don't pop up font menu
-(global-set-key (kbd "s-t") '(lambda () (interactive)))
+;; (global-set-key (kbd "s-t") '(lambda () (interactive)))
 
 ;; no bell
 (setq ring-bell-function 'ignore)

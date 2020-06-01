@@ -23,7 +23,13 @@
 (global-hl-line-mode 1)
 
 ;; company-mode everywhere (code completion)
-(global-company-mode)
+(use-package company
+  :bind (:map company-active-map
+         ("C-n" . company-select-next)
+         ("C-p" . company-select-previous))
+  :config
+  (setq company-idle-delay 0.3)
+  (global-company-mode t))
 
 (require 'hi-lock)
 (defun toggle-mark-word-at-point ()
@@ -35,10 +41,15 @@
 (global-set-key (kbd "s-.") 'toggle-mark-word-at-point)
 
 ;; Setup the YASnippet stuff
-(require 'yasnippet)
-(add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
-; ;(yas-reload-all)
-(yas-global-mode 1)
+(use-package yasnippet
+  :ensure t
+  :config
+  (add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
+  (use-package yasnippet-snippets
+    :ensure t)
+
+  (yas-global-mode t)
+  )
 
 ;; Interactive search key bindings. By default, C-s runs
 ;; isearch-forward, so this swaps the bindings.
@@ -73,11 +84,13 @@
 (global-set-key (kbd "<s-return>") 'electric-newline-and-maybe-indent)
 ;; (global-set-key (kbd "<M-return>") 'electric-newline-and-maybe-indent)
 
-;; 
-(global-set-key (kbd "<M-SPC>") 'cycle-spacing)
-(global-set-key (kbd "<s-SPC>") 'cycle-spacing)
+;; Meta-SPACE used by Alfred app
+;; (global-set-key (kbd "<M-SPC>") 'cycle-spacing)
 
-;; multipl-cursor support
+;; The following works if Spotlight key moved elsewhere
+(global-set-key (kbd "<s-SPC>") 'cycle-spacing) 
+
+;; multiple-cursor support
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 
 ; When you want to add multiple cursors not based on continuous lines, but based on
@@ -116,4 +129,4 @@
       (ns-get-selection-internal 'CLIPBOARD)
     (quit nil)))
 
-(setq electric-indent-mode nil)
+(setq electric-indent-mode t)

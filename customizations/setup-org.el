@@ -7,7 +7,7 @@
 
 (setq org-hide-leading-stars t)
 
-;; (setq org-src-fontify-natively t)
+(setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 
 ;; (setq org-ellipsis "⤵")
@@ -27,3 +27,6 @@
 
 (setq org-agenda-files (list "~/org/work.org"
                              "~/org/home.org"))
+
+
+

@@ -16,7 +16,7 @@
 ;; (add-hook 'clojure-mode-hook #'yas-minor-mode)
 
 ;; A little more syntax highlighting
-(require 'clojure-mode-extra-font-locking)
+;; (require 'clojure-mode-extra-font-locking)
 
 ;; syntax hilighting for midje
 (add-hook 'clojure-mode-hook
