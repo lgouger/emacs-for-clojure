@@ -55,7 +55,7 @@
          ;; clojure-mode-extra-font-locking
 
          ;; snippets for clojure
-         ;; clojure-snippets
+         clojure-snippets
 
          ;; integration with a Clojure REPL
          ;; https://github.com/clojure-emacs/cider
@@ -193,7 +193,7 @@
  '(org-agenda-files (quote ("~/org/home.org")))
  '(package-selected-packages
    (quote
-    (base16-theme immaterial-theme auto-org-md yasnippet-snippets zenburn-theme hcl-mode terraform-mode uniquify pipenv volatile-highlights ac-cider spinner cider cider-decompile basic-mode flycheck py-autopep8 elpy yaml-mode org-present emmet-mode racket-mode auto-yasnippet clojure-snippets ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode ido-ubiquitous groovy-mode exec-path-from-shell coffee-mode clojure-mode-extra-font-locking clj-refactor)))
+    (origami yafolding base16-theme immaterial-theme auto-org-md yasnippet-snippets zenburn-theme hcl-mode terraform-mode uniquify pipenv volatile-highlights ac-cider spinner cider cider-decompile basic-mode flycheck py-autopep8 elpy yaml-mode org-present emmet-mode racket-mode auto-yasnippet clojure-snippets ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode ido-ubiquitous groovy-mode exec-path-from-shell coffee-mode clojure-mode-extra-font-locking clj-refactor)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 

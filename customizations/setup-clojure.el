@@ -2,15 +2,23 @@
 ;; Clojure
 ;;;;
 
-;; Enable paredit for Clojure
-(add-hook 'clojure-mode-hook 'enable-paredit-mode)
+(use-package clojure-mode
+  :ensure t
+  :config
+  (add-hook 'clojure-mode-hook #'paredit-mode)
+  (add-hook 'clojure-mode-hook #'subword-mode)
+  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
 
-;; enable rainbow delimiters in clojure
-(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+(use-package cider
+  :ensure t
+  :config
+  (setq nrepl-log-messages t)
+  (add-hook 'cider-mode-hook #'eldoc-mode)
+  (add-hook 'cider-repl-mode-hook #'eldoc-mode)
+  (add-hook 'cider-repl-mode-hook #'paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
 
-;; This is useful for working with camel-case tokens, like names of
-;; Java classes (e.g. JavaClassName)
-(add-hook 'clojure-mode-hook 'subword-mode)
+
 
 ;; YASnippet minor mode -- re-enable if global yasnippet mode disabled
 ;; (add-hook 'clojure-mode-hook #'yas-minor-mode)
@@ -19,34 +27,38 @@
 ;; (require 'clojure-mode-extra-font-locking)
 
 ;; syntax hilighting for midje
-(add-hook 'clojure-mode-hook
-          (lambda ()
-            (setq inferior-lisp-program "lein repl")
-            (font-lock-add-keywords
-             nil
-             '(("(\\(facts?\\)"
-                (1 font-lock-keyword-face))
-               ("(\\(background?\\)"
-                (1 font-lock-keyword-face))))
-            (define-clojure-indent (fact 1))
-            (define-clojure-indent (facts 1))
-            (define-key clojure-mode-map (kbd "C-<return>") 'electric-newline-and-maybe-indent)
-            (define-key clojure-mode-map (kbd "M-<return>") 'electric-newline-and-maybe-indent)
-            (define-key clojure-mode-map (kbd "C-/") 'comment-or-uncomment-region) ))
+;; (add-hook 'clojure-mode-hook
+;;           (lambda ()
+;;             (setq inferior-lisp-program "lein repl")
+;;             (font-lock-add-keywords
+;;              nil
+;;              '(("(\\(facts?\\)"
+;;                 (1 font-lock-keyword-face))
+;;                ("(\\(background?\\)"
+;;                 (1 font-lock-keyword-face))))
+;;             (define-clojure-indent (fact 1))
+;;             (define-clojure-indent (facts 1))
+;;             ;; (define-key clojure-mode-map (kbd "C-<return>") 'electric-newline-and-maybe-indent)
+;;             ;; (define-key clojure-mode-map (kbd "M-<return>") 'electric-newline-and-maybe-indent)
+;;             ;; (define-key clojure-mode-map (kbd "C-/") 'comment-or-uncomment-region)
+;;             ))
 
-;; clj-refactor provides refactoring support for clojure projects
-;; (require 'clj-refactor)
 
-;; (defun my-cljr-clojure-mode-hook ()
-  ;; (clj-refactor-mode 1)
-  ;; (yas-minor-mode 1) ; for adding require/use/import
-  ;; (cljr-add-keybindings-with-prefix "C-c C-m"))
 
-;; (add-hook 'clojure-mode-hook #'my-cljr-clojure-mode-hook)
-
-;;;;
 ;; Cider
 ;;;;
+(defun cider-eval-expression-at-point-in-repl ()
+  (interactive)
+  (let ((form (cider-sexp-at-point)))
+    ;; Strip excess whitespace
+    (while (string-match "\\`\s+\\|\n+\\'" form)
+      (setq form (replace-match "" t t form)))
+    (save-selected-window
+      (cider-switch-to-repl-buffer)
+      (goto-char (point-max))
+      (insert form)
+      (cider-repl-return))))
+
 ;; Change which repl to run while editing Clojurescript files
 (setq cider-cljs-lein-repl "(do (require 'figwheel-sidecar.repl-api) (figwheel-sidecar.repl-api/start-figwheel!) (figwheel-sidecar.repl-api/cljs-repl))")
 
@@ -99,6 +111,7 @@
   '(progn
      (define-key clojure-mode-map (kbd "C-c C-v") 'cider-start-http-server)
      (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh)
+     (define-key clojure-mode-map (kbd "C-`") 'cider-eval-expression-at-point-in-repl)
      (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns)
      (define-key cider-mode-map (kbd "C-c u") 'cider-user-ns)))
 
