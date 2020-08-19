@@ -2,21 +2,27 @@
 ;; Packages
 ;;;;
 
-;; Define package repositories
+
+;;;; package.el
+(eval-and-compile
+  (setq
+   package-enable-at-startup nil
+   package-archives
+   '(("melpa-stable" . "http://stable.melpa.org/packages/")
+     ("melpa"        . "http://melpa.org/packages/")
+     ;; ("marmalade"    . "http://marmalade-repo.org/packages/")
+     ("org"          . "http://orgmode.org/elpa/")
+     ("gnu"          . "http://elpa.gnu.org/packages/") ))
+
+  (unless (boundp 'package-pinned-packages)
+    (setq package-pinned-packages ())))
+
+(defvar byte-compile-warnings nil)
+
 (require 'package)
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
-
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
-
-(package-initialize)
-
-;; Download the ELPA archive description if needed.
-;; This informs Emacs about the latest versions of all packages, and
-;; makes them available for download.
-(when (not package-archive-contents)
-  (package-refresh-contents))
+(when (< emacs-major-version 27)
+  (package-initialize))
 
 ;; Define he following variables to remove the compile-log warnings
 ;; when defining ido-ubiquitous
@@ -31,76 +37,77 @@
 ;; Add in your own as you wish:
 (setq my-packages
       '(use-package
-         diminish
-         delight
+
+        diminish
+        delight
      
-         ;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
-         company
+	;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
+        company
     
-         ;; Python mode
-         elpy
-         flycheck
-         py-autopep8
-         pipenv
+	;; Python mode
+        elpy
+        flycheck
+        py-autopep8
+        pipenv
 
-         ;; makes handling lisp expressions much, much easier
-         ;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
-         paredit
+	;; makes handling lisp expressions much, much easier
+	;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
+        paredit
 
-         ;; key bindings and code colorization for Clojure
-         ;; https://github.com/clojure-emacs/clojure-mode
-         clojure-mode
+	;; key bindings and code colorization for Clojure
+	;; https://github.com/clojure-emacs/clojure-mode
+        clojure-mode
 
-         ;; extra syntax highlighting for clojure
-         ;; clojure-mode-extra-font-locking
+	;; extra syntax highlighting for clojure
+	;; clojure-mode-extra-font-locking
 
-         ;; snippets for clojure
-         clojure-snippets
+	;; snippets for clojure
+        clojure-snippets
 
-         ;; integration with a Clojure REPL
-         ;; https://github.com/clojure-emacs/cider
-         cider
-         ac-cider
+	;; integration with a Clojure REPL
+	;; https://github.com/clojure-emacs/cider
+        cider
+        ac-cider
 
-         ;; allow ido usage in as many contexts as possible. see
-         ;; customizations/navigation.el line 23 for a description
-         ;; of ido
-         ido-completing-read+
+	;; allow ido usage in as many contexts as possible. see
+	;; customizations/navigation.el line 23 for a description
+	;; of ido
+        ido-completing-read+
 
-         ;; Enhances M-x to allow easier execution of commands. Provides
-         ;; a filterable list of possible commands in the minibuffer
-         ;; http://www.emacswiki.org/emacs/Smex
-         smex
+	;; Enhances M-x to allow easier execution of commands. Provides
+	;; a filterable list of possible commands in the minibuffer
+	;; http://www.emacswiki.org/emacs/Smex
+        smex
 
-         ;; project navigation
-         projectile
+	;; project navigation
+        projectile
 
-         ;; colorful parenthesis matching
-         rainbow-delimiters
+	;; colorful parenthesis matching
+        rainbow-delimiters
 
-         ;; edit html tags like sexps
-         tagedit
+	;; edit html tags like sexps
+        tagedit
 
-         ;; git integration
-         magit
+	;; git integration
+        magit
 
-         ;; json editing
-         json-mode
+	;; json editing
+        json-mode
 
-         ;; yaml editing
-         yaml-mode
+	;; yaml editing
+        yaml-mode
 
-         ;; kotlin editing
-         kotlin-mode
+	;; kotlin editing
+        kotlin-mode
 
-         ;; Terraform and HCL
-         hcl-mode
-         terraform-mode
+	;; Terraform and HCL
+        hcl-mode
+        terraform-mode
 
-         ;; misc
-         which-key
-         spaceline
-         ))
+	;; misc
+        which-key
+        spaceline
+        ))
 
 ;; On OS X, an Emacs instance started from the graphical user
 ;; interface will have a different environment than a shell in a
@@ -112,17 +119,28 @@
 ;; https://github.com/purcell/exec-path-from-shell
 
 (if (eq system-type 'darwin)
-   (add-to-list 'my-packages 'exec-path-from-shell))
+    (add-to-list 'my-packages 'exec-path-from-shell))
 
 ;; (mapc #'(lambda (package)
 ;;           (unless (package-installed-p package)
 ;;             (package-install package)))
 ;;       my-packages)
 
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+;; -----
 
+(defun my-packages-installed-p ()
+  (cl-loop for p in my-packages
+           when (not (package-installed-p p)) do (cl-return nil)
+           finally (cl-return t)))
+
+(unless (my-packages-installed-p)
+  ;; check for new packages (package versions)
+  (package-refresh-contents)
+  ;; install the missing packages
+  (dolist (p my-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
+;; -----
 
 ;; Place downloaded elisp files in ~/.emacs.d/vendor. You'll then be able
 ;; to load them.
@@ -135,6 +153,7 @@
 ;; 
 ;; Adding this code will make Emacs enter yaml mode whenever you open
 ;; a .yml file
+(message "adding vendor to load-path")
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
 
@@ -144,6 +163,7 @@
 
 ;; Add a directory to our load path so that when you `load` things
 ;; below, Emacs knows where to look for the corresponding file.
+(message "adding customizations to load-path")
 (add-to-list 'load-path "~/.emacs.d/customizations")
 
 ;; Sets up exec-path-from-shell so that Emacs will use the correct
@@ -187,13 +207,11 @@
  '(blink-cursor-mode nil)
  '(coffee-tab-width 2)
  '(custom-safe-themes
-   (quote
-    ("094f2c4dc01b7ebe70075ab7dba2e3f0fbab788af38ec574b2939c9454fed996" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+   '("094f2c4dc01b7ebe70075ab7dba2e3f0fbab788af38ec574b2939c9454fed996" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))
  '(menu-bar-mode nil)
- '(org-agenda-files (quote ("~/org/home.org")))
+ '(org-agenda-files '("~/org/home.org"))
  '(package-selected-packages
-   (quote
-    (origami yafolding base16-theme immaterial-theme auto-org-md yasnippet-snippets zenburn-theme hcl-mode terraform-mode uniquify pipenv volatile-highlights ac-cider spinner cider cider-decompile basic-mode flycheck py-autopep8 elpy yaml-mode org-present emmet-mode racket-mode auto-yasnippet clojure-snippets ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode ido-ubiquitous groovy-mode exec-path-from-shell coffee-mode clojure-mode-extra-font-locking clj-refactor)))
+   '(origami yafolding base16-theme immaterial-theme auto-org-md yasnippet-snippets zenburn-theme hcl-mode terraform-mode uniquify pipenv volatile-highlights ac-cider spinner cider cider-decompile basic-mode flycheck py-autopep8 elpy yaml-mode org-present emmet-mode racket-mode auto-yasnippet clojure-snippets ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode ido-ubiquitous groovy-mode exec-path-from-shell coffee-mode clojure-mode-extra-font-locking clj-refactor))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 

@@ -32,11 +32,12 @@
 ;; (mouse-wheel-mode 1)
 
 ;; scroll one line at a time (less "jumpy" than defaults)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-factor '(1 ((double) . 2) ((triple) . 3))) 
-(setq mouse-wheel-progressive-speed t) ;; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-(mouse-wheel-mode 1)
+(when (fboundp 'mouse-wheel-mode)
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+  (setq mouse-wheel-progressive-factor '(1 ((double) . 2) ((triple) . 3))) 
+  (setq mouse-wheel-progressive-speed t) ;; don't accelerate scrolling
+  (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+  (mouse-wheel-mode 1))
    
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 

@@ -1,7 +1,7 @@
 ;; python, elpy
 
-;; (require 'elpy)
-;; (require 'py-autopep8)
+(require 'elpy)
+(require 'py-autopep8)
 
 (use-package elpy
   :ensure t

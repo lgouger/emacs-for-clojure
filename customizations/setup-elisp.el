@@ -5,7 +5,7 @@
   :ensure t
   :bind (:map paredit-mode-map
          ("C-j" . nil)
-         ("C-return" . paredit-newline))
+         ("C-<return>" . paredit-newline))
   :config
   (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
   ;; enable in the *scratch* buffer
