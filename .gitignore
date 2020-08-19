@@ -1,5 +1,6 @@
 .smex-items
 *~$
+elpa/
 places
 .recentf
 ido.last
