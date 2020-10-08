@@ -2,16 +2,14 @@
 ;; Packages
 ;;;;
 
-
 ;;;; package.el
 (eval-and-compile
   (setq
    package-enable-at-startup nil
    package-archives
-   '(("melpa-stable" . "http://stable.melpa.org/packages/")
+   '(("org"          . "https://orgmode.org/elpa/")
+     ("melpa-stable" . "http://stable.melpa.org/packages/")
      ("melpa"        . "http://melpa.org/packages/")
-     ;; ("marmalade"    . "http://marmalade-repo.org/packages/")
-     ("org"          . "http://orgmode.org/elpa/")
      ("gnu"          . "http://elpa.gnu.org/packages/") ))
 
   (unless (boundp 'package-pinned-packages)
@@ -26,7 +24,7 @@
 
 ;; Define he following variables to remove the compile-log warnings
 ;; when defining ido-ubiquitous
-(defvar ido-cur-item nil)
+(defvar ido-cur-item nil)               ;
 (defvar ido-default-item nil)
 (defvar ido-cur-list nil)
 (defvar predicate nil)
@@ -37,6 +35,8 @@
 ;; Add in your own as you wish:
 (setq my-packages
       '(use-package
+
+        org
 
         diminish
         delight
@@ -54,25 +54,25 @@
 	;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
         paredit
 
+	;; colorful parenthesis matching
+        rainbow-delimiters
+
 	;; key bindings and code colorization for Clojure
 	;; https://github.com/clojure-emacs/clojure-mode
         clojure-mode
 
+        
+        inf-clojure
+        
 	;; extra syntax highlighting for clojure
 	;; clojure-mode-extra-font-locking
 
 	;; snippets for clojure
-        clojure-snippets
+        ;; clojure-snippets
 
 	;; integration with a Clojure REPL
 	;; https://github.com/clojure-emacs/cider
-        cider
-        ac-cider
-
-	;; allow ido usage in as many contexts as possible. see
-	;; customizations/navigation.el line 23 for a description
-	;; of ido
-        ido-completing-read+
+        ;; cider
 
 	;; Enhances M-x to allow easier execution of commands. Provides
 	;; a filterable list of possible commands in the minibuffer
@@ -81,9 +81,6 @@
 
 	;; project navigation
         projectile
-
-	;; colorful parenthesis matching
-        rainbow-delimiters
 
 	;; edit html tags like sexps
         tagedit
@@ -121,12 +118,6 @@
 (if (eq system-type 'darwin)
     (add-to-list 'my-packages 'exec-path-from-shell))
 
-;; (mapc #'(lambda (package)
-;;           (unless (package-installed-p package)
-;;             (package-install package)))
-;;       my-packages)
-
-;; -----
 
 (defun my-packages-installed-p ()
   (cl-loop for p in my-packages
@@ -140,6 +131,7 @@
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
 ;; -----
 
 ;; Place downloaded elisp files in ~/.emacs.d/vendor. You'll then be able
@@ -160,6 +152,9 @@
 ;;;;
 ;; Customization
 ;;;;
+(use-package all-the-icons
+  :ensure t)
+
 
 ;; Add a directory to our load path so that when you `load` things
 ;; below, Emacs knows where to look for the corresponding file.
@@ -174,50 +169,37 @@
 ;; switch buffers, and choose options from the minibuffer.
 (load "navigation.el")
 
+;; These customizations make editing a bit nicer.
+(load "editing.el")
+
 ;; These customizations change the way emacs looks and disable/enable
 ;; some user interface elements
 (load "ui.el")
-
-;; These customizations make editing a bit nicer.
-(load "editing.el")
 
 ;; Hard-to-categorize customizations
 (load "misc.el")
 
 ;; For editing lisps
-(load "setup-elisp.el")
+(load "setup-lisp.el")
 
 ;; for org-mode
 (load "setup-org.el")
 
-;; Langauage-specific
-(load "setup-clojure.el")
 (load "setup-js.el")
 ;; (load "setup-json.el")
 (load "setup-perl.el")
 (load "setup-python.el")
 
-;; set automatically
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
  '(coffee-tab-width 2)
- '(custom-safe-themes
-   '("094f2c4dc01b7ebe70075ab7dba2e3f0fbab788af38ec574b2939c9454fed996" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))
- '(menu-bar-mode nil)
- '(org-agenda-files '("~/org/home.org"))
+ '(org-agenda-files '("~/org/foo.org" "~/org/work.org" "~/org/home.org"))
  '(package-selected-packages
-   '(origami yafolding base16-theme immaterial-theme auto-org-md yasnippet-snippets zenburn-theme hcl-mode terraform-mode uniquify pipenv volatile-highlights ac-cider spinner cider cider-decompile basic-mode flycheck py-autopep8 elpy yaml-mode org-present emmet-mode racket-mode auto-yasnippet clojure-snippets ox-tufte ox-reveal pandoc ox-pandoc ox-rst kotlin-mode which-key tagedit spaceline solarized-theme smex rainbow-delimiters projectile org-bullets monokai-theme magit json-mode ido-ubiquitous groovy-mode exec-path-from-shell coffee-mode clojure-mode-extra-font-locking clj-refactor))
- '(show-paren-mode t)
- '(tool-bar-mode nil))
-
-
-(put 'narrow-to-region 'disabled nil)
-
+   '(crm-custom amx ivy jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight dashboard base16-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,5 +1,8 @@
 .smex-items
+amx-items
 *~$
+.cache/
+transient/
 elpa/
 places
 .recentf

@@ -4,12 +4,12 @@
 ;; a matter of preference and may require some fiddling to match your
 ;; preferences
 
+;; Show line numbers
+(global-linum-mode)
+
 ;; Turn off the menu bar at the top of each frame because it's distracting
 (when (fboundp 'menu-bar-mode)
   (menu-bar-mode -1))
-
-;; Show line numbers
-(global-linum-mode)
 
 ;; You can uncomment this to remove the graphical toolbar at the top. After
 ;; awhile, you won't need the toolbar.
@@ -22,7 +22,7 @@
 
 ;; swap the default modifier keys
 (when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :family "JetBrains Mono" :height 150))
+  (set-face-attribute 'default nil :family "Hasklug Nerd Font" :height 150))
 
 (setq scroll-preserve-screen-position t)
 
@@ -41,7 +41,6 @@
    
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
-
 ;; Color Themes
 ;; Read http://batsov.com/articles/2012/02/19/color-theming-in-emacs-reloaded/
 ;; for a great explanation of emacs color themes.
@@ -59,24 +58,41 @@
 ;; (load-theme `seti t)
 ;; (load-theme `warm-night t)
 
+;; (use-package jetbrains-darcula-theme
+;;   :config
+;;   (load-theme 'jetbrains-darcula t))
+
 (use-package base16-theme
   :ensure t
   :config
   (load-theme 'base16-tomorrow-night t))
 
-;; increase font size for better readability
-;; (set-face-attribute 'default nil :font "JetBrains Mono" :height 150)
 
 ;; Uncomment the lines below by removing semicolons and play with the
 ;; values in order to set the width (in characters wide) and height
 ;; (in lines high) Emacs will have whenever you start it
-(setq initial-frame-alist '((top . 20) (left . 40) (width . 140) (height . 54)))
+;; (setq initial-frame-alist '((top . 20) (left . 40) (width . 140) (height . 54)))
+(setq initial-frame-alist '((width . 140) (height . 54)))
 
 ;; powerline setup
 (use-package spaceline-config
   :config
   (setq powerline-default-separator 'utf-8)
   (spaceline-emacs-theme))
+
+;; (use-package spaceline-all-the-icons
+;;   :ensure t
+;;   :after spaceline
+;;   :config
+;;   (progn
+;;     (setq spaceline-all-the-icons-separator-type 'arrow)
+;;     (spaceline-all-the-icons-theme)))
+
+
+;; (use-package doom-modeline
+;;   :ensure t
+;;   :hook (after-init . doom-modeline-mode))
+
 
 ;; These settings relate to how emacs interacts with your operating system
 (setq ;; makes killing/yanking interact with the clipboard

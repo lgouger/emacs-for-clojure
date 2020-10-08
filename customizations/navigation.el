@@ -1,6 +1,7 @@
 ;; These customizations make it easier for you to navigate files,
 ;; switch buffers, and choose options from the minibuffer.
 
+(setq default-directory (getenv "HOME"))
 
 ;; "When several buffers visit identically-named files,
 ;; Emacs must give the buffers distinct names. The usual method
@@ -22,70 +23,87 @@
   :config
   (recentf-mode 1))
 
-
-;; ido-mode allows you to more easily navigate choices. For example,
-;; when you want to switch buffers, ido presents you with a list
-;; of buffers in the the mini-buffer. As you start to type a buffer's
-;; name, ido will narrow down the list of buffers to match the text
-;; you've typed in
-;; http://www.emacswiki.org/emacs/InteractivelyDoThings
-(use-package ido
-  :init
-  ;; This allows partial matches, e.g. "tl" will match "Tyrion Lannister"
-  (setq ido-enable-flex-matching t)
-
-  ;; Turn this behavior off because it's annoying
-  (setq ido-use-filename-at-point nil)
-
-  ;; Don't try to match file across all "work" directories; only match files
-  ;; in the current directory displayed in the minibuffer
-  (setq ido-auto-merge-work-directories-length -1)
-
-  ;; Includes buffer names of recently open files, even if they're not
-  ;; open now
-  (setq ido-use-virtual-buffers nil)
-
-  :config
-  (ido-mode t)
-  (ido-everywhere t)
-
-  ;; This enables ido in all contexts where it could be useful, not just
-  ;; for selecting buffer and file names
-  (ido-ubiquitous-mode t))
-
-
 (use-package ibuffer
-     :bind
-     ("C-x C-b" . ibuffer))
-;; Shows a list of buffers
-;; (global-set-key (kbd "C-x C-b") 'ibuffer)
-
+  :init
+  (setq ibuffer-saved-filter-groups
+        '(("home"
+	   ("emacs-config" (or (filename . ".emacs.d")
+			       (filename . "emacs-config")))
+	   ("Org" (mode . org-mode))
+           ("code" (or (mode . python-mode)
+                       (mode . java-mode)
+                       (mode . clojure-mode)))
+	   ("Web Dev" (or (mode . html-mode)
+			  (mode . css-mode)))
+	   ("Magit" (name . "\*magit"))
+	   ("Help" (or (name . "\*Help\*")
+		       (name . "\*Apropos\*")
+		       (name . "\*info\*")))))) 
+  (add-hook 'ibuffer-mode-hook
+	    '(lambda ()
+	       `(ibuffer-auto-mode 1)
+	       (ibuffer-switch-to-saved-filter-groups "home")))
+  :bind
+  ("C-x C-b" . ibuffer))
 
 ;; Prevent Control-Z from hiding the window, use C-x C-z
 (global-unset-key (kbd "C-z"))
+
+;; comment-and-uncomment region on C-/
+(global-set-key (kbd "C-/") 'comment-or-uncomment-region)
+
+
+(use-package magit
+  :ensure t
+  :bind
+  ("C-x g" . magit-status)
+  :init
+  (setq magit-completing-read-function 'magit-ido-completing-read))
 
 
 ;; Enhances M-x to allow easier execution of commands. Provides
 ;; a filterable list of possible commands in the minibuffer
 ;; http://www.emacswiki.org/emacs/Smex
-;; (setq smex-save-file (concat user-emacs-directory ".smex-items"))
-;; (smex-initialize)
-;; (global-set-key (kbd "M-x") 'smex)
+;; (use-package smex
+;;   :ensure t
+;;   :init
+;;   (setq smex-save-file (concat user-emacs-directory ".smex-items"))
+;;   :bind ("M-x" . smex)
+;;   :config (smex-initialize))
 
-(use-package smex
+;; optional if you want which-key integration
+(use-package which-key
   :ensure t
-  :init
-  (setq smex-save-file (concat user-emacs-directory ".smex-items"))
-  :bind ("M-x" . smex)
-  :config (smex-initialize))
-
-;; which-key on
-(which-key-mode)
+  :config
+  (which-key-mode))
 
 (use-package projectile
+  :ensure t
   :config
+  (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
   ;; projectile everywhere!
-  (projectile-global-mode))
+  (projectile-mode +1))
+
+(use-package dashboard
+  :ensure t
+  :init
+  (progn
+    (setq dashboard-items '((recents . 10)
+                            (projects . 5)
+                            (agenda . 10)
+                            (bookmarks . 5)))
+    (setq dashboard-center-content nil)
+    (setq dashboard-set-file-icons t)
+    (setq dashboard-set-heading-icons t)
+    ;; (dashboard-modify-heading-icons '((recents . "file-text")
+    ;;                               (bookmarks . "book")))
+    (setq dashboard-startup-banner 'logo)
+    (setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
+                                                   :height 1.1
+                                                   :v-adjust -0.05
+                                                   :face 'font-lock-keyword-face)))
+  :config
+  (dashboard-setup-startup-hook))
 
 (defun keypad-recenter (arg)
   (interactive "P")

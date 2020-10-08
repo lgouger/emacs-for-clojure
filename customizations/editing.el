@@ -22,14 +22,68 @@
 ;; Highlight current line
 (global-hl-line-mode 1)
 
-;; company-mode everywhere (code completion)
-(use-package company
-  :bind (:map company-active-map
-         ("C-n" . company-select-next)
-         ("C-p" . company-select-previous))
+
+;; ido-mode allows you to more easily navigate choices. For example,
+;; when you want to switch buffers, ido presents you with a list
+;; of buffers in the the mini-buffer. As you start to type a buffer's
+;; name, ido will narrow down the list of buffers to match the text
+;; you've typed in
+;; http://www.emacswiki.org/emacs/InteractivelyDoThings
+(use-package ido
+  :init
+  ;; This allows partial matches, e.g. "tl" will match "Tyrion Lannister"
+  ;; (setq ido-enable-flex-matching t)
+  (setq ido-enable-prefix t)
+
+  ;; Turn this behavior off because it's annoying
+  (setq ido-use-filename-at-point 'guess)
+
+  (setq ido-file-extensions-order '(".org" ".txt" ".clj" ".py" ".java" ".json" ".el"))
+
+  ;; Don't try to match file across all "work" directories; only match files
+  ;; in the current directory displayed in the minibuffer
+  ;; (setq ido-auto-merge-work-directories-length -1)
+
+  ;; Includes buffer names of recently open files, even if they're not
+  ;; open now
+  (setq ido-use-virtual-buffers t)
+
   :config
-  (setq company-idle-delay 0.3)
+  (ido-mode 1)
+  (ido-everywhere 1))
+
+(use-package ido-completing-read+
+  :ensure t
+  :config
+  (ido-ubiquitous-mode t))
+
+(use-package amx
+  :ensure t
+  :config
+  (amx-mode 1))
+
+(use-package crm-custom
+  :ensure t
+  :config
+  (crm-custom-mode 1))
+
+;; company mode -- Company is a text completion framework for Emacs
+(use-package company
+  :ensure t
+  :bind (:map company-active-map
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous))
+  :config
+  (setq company-idle-delay 0.5)
+  (setq company-show-numbers t)
+  (setq company-tooltip-limit 10)
+  (setq company-minimum-prefix-length 2)
+  (setq company-tooltip-align-annotations t)
+  ;; invert the navigation direction if the the completion popup-isearch-match
+  ;; is displayed on top (happens near the bottom of windows)
+  (setq company-tooltip-flip-when-above t)
   (global-company-mode t))
+
 
 (require 'hi-lock)
 (defun toggle-mark-word-at-point ()
@@ -39,24 +93,6 @@
     (highlight-symbol-at-point)))
 
 (global-set-key (kbd "s-.") 'toggle-mark-word-at-point)
-
-;; Setup the YASnippet stuff
-(use-package yasnippet
-  :ensure t
-  :config
-  (add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
-  (use-package yasnippet-snippets
-    :ensure t)
-
-  (yas-global-mode t)
-  )
-
-;; Interactive search key bindings. By default, C-s runs
-;; isearch-forward, so this swaps the bindings.
-;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
-;; (global-set-key (kbd "C-r") 'isearch-backward-regexp)
-;; (global-set-key (kbd "C-M-s") 'isearch-forward)
-;; (global-set-key (kbd "C-M-r") 'isearch-backward)
 
 
 ;; Don't use hard tabs
@@ -130,3 +166,6 @@
     (quit nil)))
 
 (setq electric-indent-mode t)
+
+(global-set-key (kbd "<C-enter>") 'kmacro-end-and-call-macro)
+
