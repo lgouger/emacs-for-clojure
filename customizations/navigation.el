@@ -3,6 +3,13 @@
 
 (setq default-directory (getenv "HOME"))
 
+(use-package xref
+  :ensure t)
+
+(use-package flycheck
+  :ensure t
+  :config (global-flycheck-mode))
+
 ;; "When several buffers visit identically-named files,
 ;; Emacs must give the buffers distinct names. The usual method
 ;; for making buffer names unique adds ‘<2>’, ‘<3>’, etc. to the end
@@ -52,24 +59,21 @@
 ;; comment-and-uncomment region on C-/
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
 
+(setq lsp-keymap-prefix "C-c C-l")
+
+(use-package lsp-mode
+  :ensure t
+  :hook ((python-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
 
 (use-package magit
   :ensure t
   :bind
   ("C-x g" . magit-status)
   :init
-  (setq magit-completing-read-function 'magit-ido-completing-read))
+  (setq magit-completing-read-function (if (eq lg/interactive-mode :ido) 'magit-ido-completing-read 'ivy-completing-read)))
 
-
-;; Enhances M-x to allow easier execution of commands. Provides
-;; a filterable list of possible commands in the minibuffer
-;; http://www.emacswiki.org/emacs/Smex
-;; (use-package smex
-;;   :ensure t
-;;   :init
-;;   (setq smex-save-file (concat user-emacs-directory ".smex-items"))
-;;   :bind ("M-x" . smex)
-;;   :config (smex-initialize))
 
 ;; optional if you want which-key integration
 (use-package which-key
@@ -79,6 +83,8 @@
 
 (use-package projectile
   :ensure t
+  :init
+  (if (eq lg/interactive-mode :ivy) (setq projectile-completion-system 'ivy))
   :config
   (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
   ;; projectile everywhere!
@@ -140,3 +146,4 @@
   )
 
 (global-set-key (kbd "<S-clear>") 'numnav-mode)
+(global-set-key (kbd "<s-mouse-1>") 'xref-find-definitions)

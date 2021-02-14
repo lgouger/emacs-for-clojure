@@ -1,8 +1,9 @@
-;;;
-;; Packages
-;;;;
+;;; init.el -- setup my emacs environment
 
-;;;; package.el
+;;; Commentary:
+
+
+;;; Code:
 (eval-and-compile
   (setq
    package-enable-at-startup nil
@@ -22,31 +23,32 @@
 (when (< emacs-major-version 27)
   (package-initialize))
 
-;; Define he following variables to remove the compile-log warnings
-;; when defining ido-ubiquitous
-(defvar ido-cur-item nil)               ;
-(defvar ido-default-item nil)
-(defvar ido-cur-list nil)
 (defvar predicate nil)
 (defvar inherit-input-method nil)
+
+(defvar lg/interactive-mode :ido)
+;; (defvar lg/interactive-mode :ivy)
 
 ;; The packages you want installed. You can also install these
 ;; manually with M-x package-install
 ;; Add in your own as you wish:
-(setq my-packages
+(defvar my-packages
       '(use-package
 
         org
 
+        ;; used by use-package
         diminish
         delight
-     
+
 	;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
         company
     
+        ;; linting of languages
+        flycheck
+        
 	;; Python mode
         elpy
-        flycheck
         py-autopep8
         pipenv
 
@@ -60,9 +62,6 @@
 	;; key bindings and code colorization for Clojure
 	;; https://github.com/clojure-emacs/clojure-mode
         clojure-mode
-
-        
-        inf-clojure
         
 	;; extra syntax highlighting for clojure
 	;; clojure-mode-extra-font-locking
@@ -72,12 +71,12 @@
 
 	;; integration with a Clojure REPL
 	;; https://github.com/clojure-emacs/cider
-        ;; cider
+        cider
 
 	;; Enhances M-x to allow easier execution of commands. Provides
 	;; a filterable list of possible commands in the minibuffer
 	;; http://www.emacswiki.org/emacs/Smex
-        smex
+        ;; smex
 
 	;; project navigation
         projectile
@@ -101,6 +100,13 @@
         hcl-mode
         terraform-mode
 
+        ;; REST client
+        restclient
+        ob-restclient
+        
+        ;; trying out Language Server Protocol mode
+        lsp-mode
+
 	;; misc
         which-key
         spaceline
@@ -120,6 +126,7 @@
 
 
 (defun my-packages-installed-p ()
+
   (cl-loop for p in my-packages
            when (not (package-installed-p p)) do (cl-return nil)
            finally (cl-return t)))
@@ -179,6 +186,8 @@
 ;; Hard-to-categorize customizations
 (load "misc.el")
 
+(load "setup-restclient.el")
+
 ;; For editing lisps
 (load "setup-lisp.el")
 
@@ -186,6 +195,7 @@
 (load "setup-org.el")
 
 (load "setup-js.el")
+(load "setup-typescript.el")
 ;; (load "setup-json.el")
 (load "setup-perl.el")
 (load "setup-python.el")
@@ -197,12 +207,20 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(coffee-tab-width 2)
- '(org-agenda-files '("~/org/foo.org" "~/org/work.org" "~/org/home.org"))
  '(package-selected-packages
-   '(crm-custom amx ivy jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight dashboard base16-theme)))
+   '(ob-async lsp-ui lsp-python-ms ob-graphql ob-rust ob-typescript typescript tide lsp-mode clj-refactor flycheck-clj-kondo ox-reveal ox-md lorem-ipsum ido-yes-or-no rg counsel mysql-to-org ob-sql-mode company-restclient ob-restclient restclient crm-custom amx ivy jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight dashboard base16-theme))
+ '(safe-local-variable-values
+   '((lsp-python-ms-python-executable concat
+                                      (find-pipenv-venv-at default-directory)
+                                      "/bin/python"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+
+(provide 'init)
+;;; init.el ends here

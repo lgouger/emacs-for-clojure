@@ -1,17 +1,23 @@
-;;;;
-;; Clojure
-;;;;
+;;; package -- Setup Clojure
+
+;;; Commentary:
+
+;;; Code:
+(use-package flycheck-clj-kondo
+  :ensure t)
+
 (use-package clojure-mode
   :ensure t
-  :mode ("\\.edn$" "\\.boot$")
-  :hook ((clojure-mode . paredit-mode)
-         (clojure-mode . subword-mode)
-         (clojure-mode . rainbow-delimiters-mode)))
+  :mode ("\\.clj$" "\\.cljc$" "\\.cljs$" "\\.edn$")
+  :hook
+  ((clojure-mode . eldoc-mode)
+   (clojure-mode . yas-minor-mode)
+   (clojure-mode . paredit-mode)
+   (clojure-mode . rainbow-delimiters-mode))
+  :config
+  (require 'flycheck-clj-kondo))
 
 (load "setup-cider.el")
 
-;; (use-package inf-clojure
-;;   :ensure t
-;;   :pin melpa-stable
-;;   :hook (clojure-mode . inf-clojure-minor-mode))
-
+(provide 'setup-clojure)
+;;; setup-clojure.el ends here

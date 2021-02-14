@@ -8,14 +8,9 @@
          ("C-j" . nil)
          ("C-<return>" . paredit-newline)))
 
-
 ;; rainbow parens
 (use-package rainbow-delimiters
   :ensure t)
-
-;; ielm -- Interactive Emacs Lisp Mode
-(add-hook 'ielm-mode-hook #'turn-on-eldoc-mode)
-(add-hook 'ielm-mode-hook #'enable-paredit-mode)
 
 
 ;; elisp

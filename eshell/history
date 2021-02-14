@@ -13,3 +13,4 @@ ls
 echo $PATH
 echo $PATH
 which clojure
+printenv

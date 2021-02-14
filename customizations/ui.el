@@ -22,7 +22,7 @@
 
 ;; swap the default modifier keys
 (when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :family "Hasklug Nerd Font" :height 150))
+  (set-face-attribute 'default nil :family "JetBrains Mono" :height 160))
 
 (setq scroll-preserve-screen-position t)
 
@@ -34,7 +34,7 @@
 ;; scroll one line at a time (less "jumpy" than defaults)
 (when (fboundp 'mouse-wheel-mode)
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-  (setq mouse-wheel-progressive-factor '(1 ((double) . 2) ((triple) . 3))) 
+  (setq mouse-wheel-progressive-factor '(1 ((double) . 2) ((triple) . 3))) ;; comment this line too
   (setq mouse-wheel-progressive-speed t) ;; don't accelerate scrolling
   (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
   (mouse-wheel-mode 1))

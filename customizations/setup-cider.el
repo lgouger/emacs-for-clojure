@@ -1,15 +1,28 @@
 
+(use-package clj-refactor
+  :ensure t)
+
+
 (use-package cider
   :ensure t
   :pin melpa-stable
+  :init (add-hook 'cider-mode-hook #'clj-refactor-mode)
   :config
   (setq nrepl-log-messages t)
   :bind (:map clojure-mode-map
-         ("C-`" . 'cider-eval-expression-at-point-in-repl))
-  :hook ((cider-mode . eldoc-mode)
-         (cider-repl-mode . eldoc-mode)
-         (cider-repl-mode . paredit-mode)
-         (cider-repl-mode . rainbow-delimiters-mode)))
+              ("C-`" . 'cider-eval-expression-at-point-in-repl))
+  :hook
+  ((cider-repl-mode . eldoc-mode) 
+   (cider-repl-mode . paredit-mode) 
+   (cider-repl-mode . rainbow-delimiters-mode))
+
+  :config
+  (setq cider-repl-pop-to-buffer-on-connect t
+        cider-show-error-buffer t
+        cider-auto-select-error-buffer t
+        cider-repl-history-file "~/.emacs.d/cider-history"
+        cider-repl-wrap-history t
+        ))
 
 ;; A little more syntax highlighting
 ;; (require 'clojure-mode-extra-font-locking)
@@ -28,23 +41,24 @@
       (cider-repl-return))))
 
 ;; Change which repl to run while editing Clojurescript files
-(setq cider-cljs-lein-repl "(do (require 'figwheel-sidecar.repl-api) (figwheel-sidecar.repl-api/start-figwheel!) (figwheel-sidecar.repl-api/cljs-repl))")
+;; (setq cider-cljs-lein-repl "(do (require 'figwheel-sidecar.repl-api) (figwheel-sidecar.repl-api/start-figwheel!) (figwheel-sidecar.repl-api/cljs-repl))")
 
 ;; provides minibuffer documentation for the code you're typing into the repl
 ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
-;; go right to the REPL buffer when it's finished connecting
-(setq cider-repl-pop-to-buffer-on-connect t)
+;; ;; go right to the REPL buffer when it's finished connecting
+;;   (setq cider-repl-pop-to-buffer-on-connect t)
 
-;; When there's a cider error, show its buffer and switch to it
-(setq cider-show-error-buffer t)
-(setq cider-auto-select-error-buffer t)
+;;   ;; When there's a cider error, show its buffer and switch to it
+;;   (setq cider-show-error-buffer t)
+;;   (setq cider-auto-select-error-buffer t)
 
-;; Where to store the cider history.
-(setq cider-repl-history-file "~/.emacs.d/cider-history")
+;;   ;; Where to store the cider history.
+;;   (setq cider-repl-history-file "~/.emacs.d/cider-history")
 
-;; Wrap when navigating history.
-(setq cider-repl-wrap-history t)
+;;   ;; Wrap when navigating history.
+;;   (setq cider-repl-wrap-history t)
+
 
 ;; key bindings
 ;; these help me out with the way I usually develop web apps

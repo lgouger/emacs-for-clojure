@@ -1,8 +1,28 @@
 
+(defun mb/org-narrow-to-parent ()
+  "Narrow buffer to the current subtree."
+  (interactive)
+  (widen)
+  (org-up-element)
+  (save-excursion
+    (save-match-data
+      (org-with-limited-levels
+       (narrow-to-region
+        (progn
+          (org-back-to-heading t) (point))
+        (progn (org-end-of-subtree t t)
+               (when (and (org-at-heading-p) (not (eobp))) (backward-char 1))
+               (point)))))))
+
+(use-package org
+  :ensure t
+  :bind
+  ("C-x n p" . mb/org-narrow-to-parent))
+
 (use-package org-bullets
   :ensure t
   :after org
-  :hook (org-mode . ord-bullets-mode))
+  :hook (org-mode . org-bullets-mode))
 
 (setq org-hide-leading-stars t
       org-hide-emphasis-markers t
@@ -10,20 +30,54 @@
       org-return-follows-link t
       org-outline-path-complete-in-steps nil)
 
+(setq org-src-preserve-indentation nil 
+      org-edit-src-content-indentation 0)
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
-;; (setq org-link-elisp-confirm-function 'y-or-n-p)
-;; (setq org-log-done 'time)
+(setq org-link-elisp-confirm-function 'y-or-n-p)
+(setq org-log-done 'time)
  
-;; (setq org-ellipsis "⤵")
-;; (font-lock-add-keywords 'org-mode
-;;                         '(("^ *\\([-]\\) "
-;;                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 (require 'ox-md)
+(require 'ox-reveal)
+(require 'ob-async)
 
 (when (version<= "9.2" (org-version))
     (require 'org-tempo))
+
+(eval-after-load 'org
+  (lambda()
+    ;; Clojure in orgmode stuff
+    (require 'org)
+    (require 'ob-restclient)
+    (require 'ob-sql)
+    (require 'org-tempo)
+    (require 'cider)
+    (require 'flycheck)
+    (require 'ob-clojure)
+    ;; (require 'ob-clojure-literate)
+    ;; (setq org-babel-clojure-backend 'cider)
+
+    ;; (setq ob-clojure-literate-auto-jackin-p t)
+    ;; (setq ob-clojure-literate-project-location
+    ;;       (expand-file-name (concat user-emacs-directory "Org-mode/")))
+    ;; (setq ob-clojure-literate-default-session "*cider-repl ob-clojure*")
+    
+    ;; (define-key org-babel-map (kbd "M-c") 'ob-clojure-literate-mode)
+    
+    ;; General config
+    (setq org-startup-indented t)
+    ;; Disable "ask to execute code block"  because it's annoying
+    (setq org-confirm-babel-evaluate nil)))
+
+(with-eval-after-load
+    (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)
+                                                             (sql . t)
+                                                             (python . t)
+                                                             (clojure . t)
+                                                             (restclient . t)
+                                                             (java . t)
+                                                             (shell . t))))
 
 (setq org-todo-keywords
        '((sequence "TODO(t)" "IN PROGRESS(i)" "BLOCKED(b@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
