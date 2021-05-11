@@ -64,8 +64,23 @@
 (use-package lsp-mode
   :ensure t
   :hook ((python-mode . lsp)
+         (clojure-mode . lsp)
+         (clojurescript-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+  :config
+  ;; add paths to your local installation of project mgmt tools, like lein
+  (setenv "PATH" (concat "/usr/local/bin" path-separator (getenv "PATH")))
+  (dolist (m '(clojure-mode
+               clojurescript-mode
+               clojurex-mode))
+     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
+  (setq lsp-clojure-server-command '("/usr/local/bin/clojure-lsp")))
+  
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :init (progn
+          (setq lsp-ui-sideline-show-code-actions nil)))
 
 (use-package magit
   :ensure t

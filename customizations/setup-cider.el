@@ -7,17 +7,17 @@
   :ensure t
   :pin melpa-stable
   :init (add-hook 'cider-mode-hook #'clj-refactor-mode)
-  :config
-  (setq nrepl-log-messages t)
-  :bind (:map clojure-mode-map
-              ("C-`" . 'cider-eval-expression-at-point-in-repl))
+  :bind
+  (:map clojure-mode-map
+        ("C-`" . 'cider-eval-expression-at-point-in-repl))
   :hook
   ((cider-repl-mode . eldoc-mode) 
    (cider-repl-mode . paredit-mode) 
    (cider-repl-mode . rainbow-delimiters-mode))
 
   :config
-  (setq cider-repl-pop-to-buffer-on-connect t
+  (setq nrepl-log-messages t
+        cider-repl-pop-to-buffer-on-connect t
         cider-show-error-buffer t
         cider-auto-select-error-buffer t
         cider-repl-history-file "~/.emacs.d/cider-history"

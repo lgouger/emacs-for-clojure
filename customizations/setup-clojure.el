@@ -17,6 +17,14 @@
   :config
   (require 'flycheck-clj-kondo))
 
+(use-package clj-refactor
+  :ensure t
+  :hook
+  (clojure-mode . clj-refactor-mode)
+  :config
+  (cljr-add-keybindings-with-prefix "C-c .")
+  :diminish clj-refactor-mode)
+
 (load "setup-cider.el")
 
 (provide 'setup-clojure)
