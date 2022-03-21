@@ -23,19 +23,18 @@
 (global-hl-line-mode 1)
 
 ;; load the desired interactive mode
-(if (eq lg/interactive-mode :ido)
-    (load "editing-ido.el")
-  (load "editing-ivy.el"))
+(load "editing-ido.el")
 
 ;; company mode -- Company is a text completion framework for Emacs
 (use-package company
   :ensure t
+  :diminish
   :bind (:map company-active-map
               ("C-n" . company-select-next)
               ("C-p" . company-select-previous))
   :config
   (setq company-idle-delay 0.5)
-  (setq company-show-numbers t)
+  (setq company-show-quick-access t)
   (setq company-tooltip-limit 10)
   (setq company-minimum-prefix-length 2)
   (setq company-tooltip-align-annotations t)
@@ -44,6 +43,11 @@
   (setq company-tooltip-flip-when-above t)
   (global-company-mode t))
 
+(use-package company-box
+  :ensure t
+  :after company
+  :diminish
+  :hook (company-mode . company-box-mode))
 
 (require 'hi-lock)
 (defun toggle-mark-word-at-point ()

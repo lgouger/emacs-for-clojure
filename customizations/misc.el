@@ -1,5 +1,8 @@
+
 ;; Changes all yes/no questions to y/n type
 ;;; (fset 'yes-or-no-p 'y-or-n-p)
+
+(setq confirm-kill-emacs 'y-or-n-p)
 
 ;; shell scripts
 (setq-default sh-basic-offset 2)
@@ -36,3 +39,4 @@
   (define-key lorem-ipsum-map (kbd "s") 'lorem-ipsum-insert-sentences)
   (define-key lorem-ipsum-map (kbd "p") 'lorem-ipsum-insert-paragraphs)
   (define-key lorem-ipsum-map (kbd "l") 'lorem-ipsum-insert-list))
+

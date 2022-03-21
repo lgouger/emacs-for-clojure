@@ -16,21 +16,26 @@
 
 (use-package org
   :ensure t
+  :pin gnu
   :bind
-  ("C-x n p" . mb/org-narrow-to-parent))
+  ("C-x n p" . mb/org-narrow-to-parent)
+  :init
+  (setq org-adapt-indentation 'headline-data)
+  :config
+  (setq org-completion-use-ido t)
+  (setq org-hide-leading-stars t)
+  (setq org-hide-emphasis-markers t)
+  (setq org-src-preserve-indentation t))
+
+(add-hook 'org-mode-hook (lambda () (electric-indent-local-mode -1)))
 
 (use-package org-bullets
   :ensure t
   :after org
   :hook (org-mode . org-bullets-mode))
 
-(setq org-hide-leading-stars t
-      org-hide-emphasis-markers t
-      org-completion-use-ido t
-      org-return-follows-link t
-      org-outline-path-complete-in-steps nil)
-
-(setq org-src-preserve-indentation nil 
+(setq org-return-follows-link t
+      org-outline-path-complete-in-steps nil
       org-edit-src-content-indentation 0)
 
 (setq org-src-fontify-natively t)
@@ -53,8 +58,9 @@
     (require 'ob-sql)
     (require 'org-tempo)
     (require 'cider)
-    (require 'flycheck)
-    (require 'ob-clojure)
+    ;; (require 'flycheck)
+    ;; (require 'ob-clojure)
+    (require 'ob-babashka)
     ;; (require 'ob-clojure-literate)
     ;; (setq org-babel-clojure-backend 'cider)
 

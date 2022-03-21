@@ -22,7 +22,7 @@
 
 ;; swap the default modifier keys
 (when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :family "JetBrains Mono" :height 160))
+  (set-face-attribute 'default nil :family "JetBrains Mono" :height 190))
 
 (setq scroll-preserve-screen-position t)
 
@@ -125,7 +125,7 @@
 (setq-default frame-title-format "%b (%f)")
 
 ;; don't pop up font menu
-;; (global-set-key (kbd "s-t") '(lambda () (interactive)))
+;; (global-set-key (kbd "s-t") '(lambda () (no)))
 
-;; no bell
+;; interactive bell
 (setq ring-bell-function 'ignore)

@@ -5,30 +5,33 @@
 ;; (require 'py-autopep8)
 
 ;;; Code:
-(defun flycheck-in-elpy-hook ()
-  "When present enable flycheck mode."
-  (when (require 'flycheck nil t)
-    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-    (add-hook 'elpy-mode-hook #'flycheck-mode)))
+
+;; (defun flycheck-in-elpy-hook ()
+;;   "When present enable flycheck mode."
+;;   (when (require 'flycheck nil t)
+;;     (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;     (add-hook 'elpy-mode-hook #'flycheck-mode)))
 
 (use-package py-autopep8
   :ensure t)
 
 (use-package elpy
   :ensure t
-  :after (flycheck py-autopep8)
   :init
-  (advice-add 'python-mode :before 'elpy-enable)
-  :hook
-  ((elpy-mode . flycheck-in-elpy-hook)
-   (elpy-mode . py-autopep8-enable-on-save)))
+  (setq elpy-rpc-python-command "python3")
+  (setq python-shell-interpreter "python3")
+  (setq  python-shell-interpreter-args "-i")
+  :config
+  (when (load "flycheck" t t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
+  (elpy-enable))
 
 (defun my-python-mode-hook ()
-  (define-key elpy-mode-map   (kbd "C-<return>") 'electric-newline-and-maybe-indent)
+;;  (define-key elpy-mode-map   (kbd "C-<return>") 'electric-newline-and-maybe-indent)
   (define-key python-mode-map (kbd "C-<return>") 'electric-newline-and-maybe-indent)
   (define-key python-mode-map (kbd "M-<return>") 'electric-newline-and-maybe-indent)
   (define-key python-mode-map (kbd "C-/") 'comment-or-uncomment-region))
-
 
 (defun find-pipenv-venv-at (directory)
   "Find out a virtual environment that is associated with DIRECTORY.
@@ -89,33 +92,27 @@ then call FUN with R. This function is supposed to be passed to advice-add with 
         (setenv "PATH" old-path)
         (setenv "VIRTUAL_ENV" old-virtualenv)
         (setenv "PYTHONHOME" old-pythonhome)))
-
     )
   )
 
 (use-package pipenv
+  :ensure t
   :hook (python-mode . pipenv-mode)
   :init
-  (setq pipenv-projectile-after-switch-function
-        #'pipenv-projectile-after-switch-extended))
+  (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
 
 (use-package python
   :ensure nil
-  :after (elpy py-autopep8)
+  :after (elpy
+          py-autopep8)
   :hook  (python-mode . my-python-mode-hook))
-
-(add-hook 'hack-local-variables-hook
-          (lambda ()
-            (when (derived-mode-p 'python-mode)
-              (require 'lsp-python-ms)
-              (lsp))))
 
 (use-package lsp-python-ms
   :ensure t
-  :init (setq lsp-python-ms-auto-install-server t))
-
-(use-package lsp-ui
-  :ensure t)
+  :init (setq lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-python-ms)
+                          (lsp))))  ; or lsp-deferred
 
 (provide 'setup-python)
 ;;; setup-python.el ends here

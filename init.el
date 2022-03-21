@@ -8,8 +8,7 @@
   (setq
    package-enable-at-startup nil
    package-archives
-   '(("org"          . "https://orgmode.org/elpa/")
-     ("melpa-stable" . "http://stable.melpa.org/packages/")
+   '(("melpa-stable" . "http://stable.melpa.org/packages/")
      ("melpa"        . "http://melpa.org/packages/")
      ("gnu"          . "http://elpa.gnu.org/packages/") ))
 
@@ -17,6 +16,8 @@
     (setq package-pinned-packages ())))
 
 (defvar byte-compile-warnings nil)
+
+(set-language-environment "UTF-8")
 
 (require 'package)
 
@@ -26,8 +27,6 @@
 (defvar predicate nil)
 (defvar inherit-input-method nil)
 
-(defvar lg/interactive-mode :ido)
-;; (defvar lg/interactive-mode :ivy)
 
 ;; The packages you want installed. You can also install these
 ;; manually with M-x package-install
@@ -96,6 +95,9 @@
 	;; kotlin editing
         kotlin-mode
 
+        ;; groovy editing
+        groovy-mode
+
 	;; Terraform and HCL
         hcl-mode
         terraform-mode
@@ -155,7 +157,6 @@
 (message "adding vendor to load-path")
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
-
 ;;;;
 ;; Customization
 ;;;;
@@ -208,11 +209,7 @@
  ;; If there is more than one, they won't work right.
  '(coffee-tab-width 2)
  '(package-selected-packages
-   '(cider ob-async lsp-ui lsp-python-ms ob-graphql ob-rust ob-typescript typescript tide clj-refactor flycheck-clj-kondo ox-reveal ox-md lorem-ipsum ido-yes-or-no rg counsel mysql-to-org ob-sql-mode company-restclient ob-restclient restclient crm-custom amx ivy jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight base16-theme))
- '(safe-local-variable-values
-   '((lsp-python-ms-python-executable concat
-                                      (find-pipenv-venv-at default-directory)
-                                      "/bin/python"))))
+   '(groovy-mode ob-async lsp-ui lsp-python-ms ob-graphql ob-rust ob-typescript typescript tide clj-refactor flycheck-clj-kondo ox-reveal ox-md lorem-ipsum ido-yes-or-no rg counsel mysql-to-org ob-sql-mode company-restclient ob-restclient restclient crm-custom amx jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight base16-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

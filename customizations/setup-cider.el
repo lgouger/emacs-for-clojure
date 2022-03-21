@@ -5,7 +5,7 @@
 
 (use-package cider
   :ensure t
-  :pin melpa-stable
+  ;; :pin melpa-stable
   :init (add-hook 'cider-mode-hook #'clj-refactor-mode)
   :bind
   (:map clojure-mode-map

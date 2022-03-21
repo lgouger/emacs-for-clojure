@@ -3,8 +3,8 @@
 ;;; Commentary:
 
 ;;; Code:
-(use-package flycheck-clj-kondo
-  :ensure t)
+;; (use-package flycheck-clj-kondo
+;;   :ensure t)
 
 (use-package clojure-mode
   :ensure t
@@ -14,8 +14,9 @@
    (clojure-mode . yas-minor-mode)
    (clojure-mode . paredit-mode)
    (clojure-mode . rainbow-delimiters-mode))
-  :config
-  (require 'flycheck-clj-kondo))
+  ;; :config
+  ;; (require 'flycheck-clj-kondo)
+  )
 
 (use-package clj-refactor
   :ensure t
