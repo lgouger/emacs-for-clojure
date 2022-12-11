@@ -17,6 +17,8 @@
 (use-package terraform-mode
   :ensure t)
 
+;; (use-package julia-mode
+;;   :ensure t)
 
 (defun list-disabled-commands ()
   "Enable all commands, reporting on which were disabled."
@@ -39,4 +41,3 @@
   (define-key lorem-ipsum-map (kbd "s") 'lorem-ipsum-insert-sentences)
   (define-key lorem-ipsum-map (kbd "p") 'lorem-ipsum-insert-paragraphs)
   (define-key lorem-ipsum-map (kbd "l") 'lorem-ipsum-insert-list))
-

@@ -1,5 +1,9 @@
+;;; package -- Setup Lisp
 
+;;; Commentary:
 ;; Things common to all lisps
+
+;;; Code:
 
 ;; paredit
 (use-package paredit
@@ -18,3 +22,6 @@
 
 ;; clojure
 (load "setup-clojure.el")
+
+(provide 'setup-lisp)
+;;; setup-lisp.el ends here

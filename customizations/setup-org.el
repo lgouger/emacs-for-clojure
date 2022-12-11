@@ -16,9 +16,9 @@
 
 (use-package org
   :ensure t
-  :pin gnu
   :bind
   ("C-x n p" . mb/org-narrow-to-parent)
+  ("C-c C-l" . org-store-link)
   :init
   (setq org-adapt-indentation 'headline-data)
   :config

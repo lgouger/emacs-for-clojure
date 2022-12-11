@@ -1,6 +1,6 @@
 ;;; setup-typescript -- Configuration for Typescript language
 
-;;; Commentary -- misc
+;;; Commentary:
 
 ;;; Code:
 (use-package typescript-mode

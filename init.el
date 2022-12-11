@@ -40,17 +40,19 @@
         diminish
         delight
 
-	;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
+	;; project navigation
+        projectile
+	
+        ;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
         company
     
+        ;; trying out Language Server Protocol mode
+        lsp-mode
+        lsp-python-ms
+        
         ;; linting of languages
         flycheck
         
-	;; Python mode
-        elpy
-        py-autopep8
-        pipenv
-
 	;; makes handling lisp expressions much, much easier
 	;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
         paredit
@@ -62,23 +64,19 @@
 	;; https://github.com/clojure-emacs/clojure-mode
         clojure-mode
         
-	;; extra syntax highlighting for clojure
-	;; clojure-mode-extra-font-locking
-
-	;; snippets for clojure
-        ;; clojure-snippets
-
 	;; integration with a Clojure REPL
 	;; https://github.com/clojure-emacs/cider
         cider
+
+	;; Python mode
+        elpy
+        py-autopep8
+        pipenv
 
 	;; Enhances M-x to allow easier execution of commands. Provides
 	;; a filterable list of possible commands in the minibuffer
 	;; http://www.emacswiki.org/emacs/Smex
         ;; smex
-
-	;; project navigation
-        projectile
 
 	;; edit html tags like sexps
         tagedit
@@ -98,6 +96,9 @@
         ;; groovy editing
         groovy-mode
 
+        ;; Julia
+        julia-mode
+
 	;; Terraform and HCL
         hcl-mode
         terraform-mode
@@ -106,9 +107,6 @@
         restclient
         ob-restclient
         
-        ;; trying out Language Server Protocol mode
-        lsp-mode
-
 	;; misc
         which-key
         spaceline
@@ -163,7 +161,6 @@
 (use-package all-the-icons
   :ensure t)
 
-
 ;; Add a directory to our load path so that when you `load` things
 ;; below, Emacs knows where to look for the corresponding file.
 (message "adding customizations to load-path")
@@ -189,16 +186,16 @@
 
 (load "setup-restclient.el")
 
-;; For editing lisps
+;; For editing lisps (including clojure)
 (load "setup-lisp.el")
 
 ;; for org-mode
 (load "setup-org.el")
 
-(load "setup-js.el")
-(load "setup-typescript.el")
+;; (load "setup-js.el") ;; needs updating to use-package
+;; (load "setup-typescript.el")
 ;; (load "setup-json.el")
-(load "setup-perl.el")
+;; (load "setup-perl.el")
 (load "setup-python.el")
 
 
@@ -209,7 +206,7 @@
  ;; If there is more than one, they won't work right.
  '(coffee-tab-width 2)
  '(package-selected-packages
-   '(groovy-mode ob-async lsp-ui lsp-python-ms ob-graphql ob-rust ob-typescript typescript tide clj-refactor flycheck-clj-kondo ox-reveal ox-md lorem-ipsum ido-yes-or-no rg counsel mysql-to-org ob-sql-mode company-restclient ob-restclient restclient crm-custom amx jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight base16-theme)))
+   '(julia-mode string-inflection python-black poetry winum flx-ido groovy-mode ob-async lsp-ui lsp-python-ms ob-graphql ob-rust ob-typescript typescript tide clj-refactor flycheck-clj-kondo ox-reveal ox-md lorem-ipsum ido-yes-or-no rg counsel mysql-to-org ob-sql-mode company-restclient ob-restclient restclient crm-custom amx jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight base16-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

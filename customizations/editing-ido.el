@@ -1,7 +1,10 @@
 
+
+(require 'flx-ido)
+
 ;; Define he following variables to remove the compile-log warnings
 ;; when defining ido-ubiquitous
-(defvar ido-cur-item nil)               ;
+(defvar ido-cur-item nil)
 (defvar ido-default-item nil)
 (defvar ido-cur-list nil)
 
@@ -31,9 +34,13 @@
   ;; open now
   (setq ido-use-virtual-buffers nil)
 
+  (setq ido-use-faces nil)
+
   :config
   (ido-mode 1)
-  (ido-everywhere 1))
+  (ido-everywhere 1)
+  (flx-ido-mode 1)
+  )
 
 ;; Enhances M-x to allow easier execution of commands. Provides
 ;; a filterable list of possible commands in the minibuffer

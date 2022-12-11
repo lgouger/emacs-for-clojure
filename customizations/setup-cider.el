@@ -9,7 +9,8 @@
   :init (add-hook 'cider-mode-hook #'clj-refactor-mode)
   :bind
   (:map clojure-mode-map
-        ("C-`" . 'cider-eval-expression-at-point-in-repl))
+        ("C-`" . 'cider-eval-expression-at-point-in-repl)
+        ("M-<return>" . 'cider-clerk-show))
   :hook
   ((cider-repl-mode . eldoc-mode) 
    (cider-repl-mode . paredit-mode) 
@@ -21,8 +22,7 @@
         cider-show-error-buffer t
         cider-auto-select-error-buffer t
         cider-repl-history-file "~/.emacs.d/cider-history"
-        cider-repl-wrap-history t
-        ))
+        cider-repl-wrap-history t))
 
 ;; A little more syntax highlighting
 ;; (require 'clojure-mode-extra-font-locking)
@@ -39,6 +39,25 @@
       (goto-char (point-max))
       (insert form)
       (cider-repl-return))))
+
+(defun cider-clerk-show ()
+  (interactive)
+  (when-let ((filename (buffer-file-name)))
+    (save-buffer)
+    (cider-interactive-eval (concat "(nextjournal/show! \"" filename "\")")))) 
+
+
+(defun clerk-show ()
+  (interactive)
+  (when-let
+      ((filename
+        (buffer-file-name)))
+    (save-buffer)
+    (cider-interactive-eval
+     (concat "(nextjournal.clerk/show! \"" filename "\")"))))
+
+(define-key clojure-mode-map (kbd "<M-return>") 'clerk-show)
+
 
 ;; Change which repl to run while editing Clojurescript files
 ;; (setq cider-cljs-lein-repl "(do (require 'figwheel-sidecar.repl-api) (figwheel-sidecar.repl-api/start-figwheel!) (figwheel-sidecar.repl-api/cljs-repl))")

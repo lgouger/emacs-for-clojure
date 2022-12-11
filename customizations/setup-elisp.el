@@ -1,3 +1,9 @@
+;;; package -- Setup Emacs Lisp Stuff
+
+;;; Commentary:
+;; Setup Emacs Lisp Stuff
+
+;;; Code:
 ;; Automatically load paredit when editing a lisp file
 ;; More at http://www.emacswiki.org/emacs/ParEdit
 
@@ -15,3 +21,5 @@
 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
 (add-hook 'ielm-mode-hook #'enable-paredit-mode)
 
+(provide 'setup-elisp)
+;;; setup-elisp.el ends here

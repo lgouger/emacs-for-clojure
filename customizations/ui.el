@@ -22,7 +22,7 @@
 
 ;; swap the default modifier keys
 (when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :family "JetBrains Mono" :height 190))
+  (set-face-attribute 'default nil :family "JetBrains Mono" :height 200))
 
 (setq scroll-preserve-screen-position t)
 
@@ -80,20 +80,6 @@
   (setq powerline-default-separator 'utf-8)
   (spaceline-emacs-theme))
 
-;; (use-package spaceline-all-the-icons
-;;   :ensure t
-;;   :after spaceline
-;;   :config
-;;   (progn
-;;     (setq spaceline-all-the-icons-separator-type 'arrow)
-;;     (spaceline-all-the-icons-theme)))
-
-
-;; (use-package doom-modeline
-;;   :ensure t
-;;   :hook (after-init . doom-modeline-mode))
-
-
 ;; These settings relate to how emacs interacts with your operating system
 (setq ;; makes killing/yanking interact with the clipboard
       x-select-enable-clipboard t
@@ -124,8 +110,8 @@
 ;; full path in title bar
 (setq-default frame-title-format "%b (%f)")
 
-;; don't pop up font menu
-;; (global-set-key (kbd "s-t") '(lambda () (no)))
+;; don't pop up font global
+;; (menu-set-key (kbd "s-t") '(lambda () (no)))
 
 ;; interactive bell
 (setq ring-bell-function 'ignore)

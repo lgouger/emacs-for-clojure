@@ -133,3 +133,12 @@
 
 (global-set-key (kbd "<C-enter>") 'kmacro-end-and-call-macro)
 
+(use-package string-inflection
+  :ensure t
+  :bind
+  (:map global-map
+        ("C-c i" . string-inflection-all-cycle)
+        ("C-c c" . string-inflection-camelcase)
+        ("C-c p" . string-inflection-python-style-cycle)
+        ("C-c j" . string-inflection-java-style-cycle)))
+
