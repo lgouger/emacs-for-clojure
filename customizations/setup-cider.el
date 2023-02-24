@@ -1,6 +1,7 @@
 
-(use-package clj-refactor
-  :ensure t)
+;; commented out on 1/4/23
+;; (use-package clj-refactor
+;;   :ensure t)
 
 
 (use-package cider
@@ -10,10 +11,11 @@
   :bind
   (:map clojure-mode-map
         ("C-`" . 'cider-eval-expression-at-point-in-repl)
-        ("M-<return>" . 'cider-clerk-show))
+;;        ("M-<return>" . 'cider-clerk-show)
+        )
   :hook
-  ((cider-repl-mode . eldoc-mode) 
-   (cider-repl-mode . paredit-mode) 
+  ((cider-repl-mode . eldoc-mode)
+   ;; (cider-repl-mode . paredit-mode)
    (cider-repl-mode . rainbow-delimiters-mode))
 
   :config
@@ -22,7 +24,8 @@
         cider-show-error-buffer t
         cider-auto-select-error-buffer t
         cider-repl-history-file "~/.emacs.d/cider-history"
-        cider-repl-wrap-history t))
+        cider-repl-wrap-history t
+        lsp-enable-xref nil))
 
 ;; A little more syntax highlighting
 ;; (require 'clojure-mode-extra-font-locking)
@@ -40,23 +43,15 @@
       (insert form)
       (cider-repl-return))))
 
-(defun cider-clerk-show ()
-  (interactive)
-  (when-let ((filename (buffer-file-name)))
-    (save-buffer)
-    (cider-interactive-eval (concat "(nextjournal/show! \"" filename "\")")))) 
-
-
-(defun clerk-show ()
-  (interactive)
-  (when-let
-      ((filename
-        (buffer-file-name)))
-    (save-buffer)
-    (cider-interactive-eval
-     (concat "(nextjournal.clerk/show! \"" filename "\")"))))
-
-(define-key clojure-mode-map (kbd "<M-return>") 'clerk-show)
+;; commentted out on 1/4/23
+;; (defun cider-clerk-show ()
+;;   (interactive)
+;;   (when-let ((filename (buffer-file-name)))
+;;     (save-buffer)
+;;     (cider-interactive-eval (concat "(nextjournal/show! \"" filename "\")"))))
+;;
+;;
+;; (define-key clojure-mode-map (kbd "<M-return>") 'cider-clerk-show)
 
 
 ;; Change which repl to run while editing Clojurescript files
@@ -94,7 +89,7 @@
 ;;   (interactive)
 ;;   (cider-interactive-eval (format "(user/reset)")))
 
-;; (defun cider-user-ns ()
-;;   (interactive)
-;;   (cider-repl-set-ns "user"))
+(defun cider-user-ns ()
+  (interactive)
+  (cider-repl-set-ns "user"))
 

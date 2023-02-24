@@ -7,10 +7,7 @@
 
 ;; paredit
 (use-package paredit
-  :ensure t
-  :bind (:map paredit-mode-map
-         ("C-j" . nil)
-         ("C-<return>" . paredit-newline)))
+  :ensure t)
 
 ;; rainbow parens
 (use-package rainbow-delimiters

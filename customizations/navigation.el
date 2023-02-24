@@ -45,7 +45,7 @@
 	   ("Magit" (name . "\*magit"))
 	   ("Help" (or (name . "\*Help\*")
 		       (name . "\*Apropos\*")
-		       (name . "\*info\*")))))) 
+		       (name . "\*info\*"))))))
   (add-hook 'ibuffer-mode-hook
 	    '(lambda ()
 	       `(ibuffer-auto-mode 1)
@@ -121,10 +121,15 @@
                clojurescript-mode
                clojurex-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
-  ;; (setq lsp-lens-enable t)
-  
+  ;;(setq lsp-lens-enable t)
+  (setq
+   lsp-ui-doc-enable nil       ;; disable all doc popups
+   lsp-ui-sideline-enable nil  ;; disable sideline bar for less distraction
+   treemacs-space-between-root-nodes nil) ;; no spacing in treemacs views
+
+
   :commands lsp)
-  
+
 (use-package lsp-ui
   :ensure t
   :commands lsp-ui-mode
@@ -203,7 +208,7 @@
     (treemacs-filewatch-mode t)
     (treemacs-fringe-indicator-mode 'always)
     (treemacs-hide-gitignored-files-mode nil)
-    
+
     (pcase (cons (not (null (executable-find "git")))
                  (not (null treemacs-python-executable)))
       (`(t . t)

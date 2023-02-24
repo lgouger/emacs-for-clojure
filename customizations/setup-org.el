@@ -20,12 +20,14 @@
   ("C-x n p" . mb/org-narrow-to-parent)
   ("C-c C-l" . org-store-link)
   :init
-  (setq org-adapt-indentation 'headline-data)
+  (setq org-adapt-indentation t)
+  ;; (setq org-adapt-indentation 'headline-data)
   :config
   (setq org-completion-use-ido t)
   (setq org-hide-leading-stars t)
   (setq org-hide-emphasis-markers t)
-  (setq org-src-preserve-indentation t))
+  (setq org-src-preserve-indentation t)
+  (setq line-move-visual nil))
 
 (add-hook 'org-mode-hook (lambda () (electric-indent-local-mode -1)))
 

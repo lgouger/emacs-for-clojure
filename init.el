@@ -42,17 +42,17 @@
 
 	;; project navigation
         projectile
-	
+
         ;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
         company
-    
+
         ;; trying out Language Server Protocol mode
         lsp-mode
         lsp-python-ms
-        
+
         ;; linting of languages
         flycheck
-        
+
 	;; makes handling lisp expressions much, much easier
 	;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
         paredit
@@ -63,7 +63,7 @@
 	;; key bindings and code colorization for Clojure
 	;; https://github.com/clojure-emacs/clojure-mode
         clojure-mode
-        
+
 	;; integration with a Clojure REPL
 	;; https://github.com/clojure-emacs/cider
         cider
@@ -97,7 +97,7 @@
         groovy-mode
 
         ;; Julia
-        julia-mode
+        ;; julia-mode
 
 	;; Terraform and HCL
         hcl-mode
@@ -106,7 +106,7 @@
         ;; REST client
         restclient
         ob-restclient
-        
+
 	;; misc
         which-key
         spaceline
@@ -149,7 +149,7 @@
 ;;
 ;; (require 'yaml-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-;; 
+;;
 ;; Adding this code will make Emacs enter yaml mode whenever you open
 ;; a .yml file
 (message "adding vendor to load-path")
@@ -206,7 +206,7 @@
  ;; If there is more than one, they won't work right.
  '(coffee-tab-width 2)
  '(package-selected-packages
-   '(julia-mode string-inflection python-black poetry winum flx-ido groovy-mode ob-async lsp-ui lsp-python-ms ob-graphql ob-rust ob-typescript typescript tide clj-refactor flycheck-clj-kondo ox-reveal ox-md lorem-ipsum ido-yes-or-no rg counsel mysql-to-org ob-sql-mode company-restclient ob-restclient restclient crm-custom amx jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight base16-theme)))
+   '(diff-hl keycast julia-mode string-inflection python-black poetry winum flx-ido groovy-mode ob-async ob-graphql ob-rust ob-typescript typescript tide clj-refactor flycheck-clj-kondo ox-reveal ox-md lorem-ipsum ido-yes-or-no rg counsel mysql-to-org ob-sql-mode company-restclient ob-restclient restclient crm-custom amx jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight base16-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

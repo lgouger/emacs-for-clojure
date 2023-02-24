@@ -7,9 +7,11 @@
 ;; Show line numbers
 (global-linum-mode)
 
+(global-diff-hl-mode)
+
 ;; Turn off the menu bar at the top of each frame because it's distracting
-(when (fboundp 'menu-bar-mode)
-  (menu-bar-mode -1))
+;; (when (fboundp 'menu-bar-mode)
+;;   (menu-bar-mode))
 
 ;; You can uncomment this to remove the graphical toolbar at the top. After
 ;; awhile, you won't need the toolbar.
@@ -38,7 +40,7 @@
   (setq mouse-wheel-progressive-speed t) ;; don't accelerate scrolling
   (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
   (mouse-wheel-mode 1))
-   
+
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
 ;; Color Themes
@@ -80,29 +82,36 @@
   (setq powerline-default-separator 'utf-8)
   (spaceline-emacs-theme))
 
+
+;; (use-package keycast
+;;   :init
+;;   (add-to-list 'global-mode-string '("" mode-line-keycast))
+;;   (keycast-mode))
+
+
 ;; These settings relate to how emacs interacts with your operating system
 (setq ;; makes killing/yanking interact with the clipboard
-      x-select-enable-clipboard t
+ x-select-enable-clipboard t
 
-      ;; I'm actually not sure what this does but it's recommended?
-      x-select-enable-primary t
+ ;; I'm actually not sure what this does but it's recommended?
+ x-select-enable-primary t
 
-      ;; Save clipboard strings into kill ring before replacing them.
-      ;; When one selects something in another program to paste it into Emacs,
-      ;; but kills something in Emacs before actually pasting it,
-      ;; this selection is gone unless this variable is non-nil
-      save-interprogram-paste-before-kill t
+ ;; Save clipboard strings into kill ring before replacing them.
+ ;; When one selects something in another program to paste it into Emacs,
+ ;; but kills something in Emacs before actually pasting it,
+ ;; this selection is gone unless this variable is non-nil
+ save-interprogram-paste-before-kill t
 
-      ;; Shows all options when running apropos. For more info,
-      ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Apropos.html
-      apropos-do-all t
+ ;; Shows all options when running apropos. For more info,
+ ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Apropos.html
+ apropos-do-all t
 
-      ;; force horizontal split for temp buffers  (top an bottom)
-      ;; change to zero (0) for vertical split.
-      split-width-threshold 99999
+ ;; force horizontal split for temp buffers  (top an bottom)
+ ;; change to zero (0) for vertical split.
+ split-width-threshold 99999
 
-      ;; Mouse yank commands yank at point instead of at click.
-      mouse-yank-at-point t)
+ ;; Mouse yank commands yank at point instead of at click.
+ mouse-yank-at-point t)
 
 ;; No cursor blinking, it's distracting
 (blink-cursor-mode 0)
