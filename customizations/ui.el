@@ -5,9 +5,12 @@
 ;; preferences
 
 ;; Show line numbers
-(global-linum-mode)
+(global-display-line-numbers-mode)
 
 (global-diff-hl-mode)
+
+;; Highlight current line
+(global-hl-line-mode 1)
 
 ;; Turn off the menu bar at the top of each frame because it's distracting
 ;; (when (fboundp 'menu-bar-mode)
@@ -24,7 +27,9 @@
 
 ;; swap the default modifier keys
 (when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :family "JetBrains Mono" :height 200))
+  ;; (set-face-attribute 'default nil :family "JetBrains Mono" :height 200)
+  (set-face-attribute 'default nil :family "Hack" :height 200)
+  )
 
 (setq scroll-preserve-screen-position t)
 
@@ -67,7 +72,7 @@
 (use-package base16-theme
   :ensure t
   :config
-  (load-theme 'base16-tomorrow-night t))
+  (load-theme 'base16-default-dark t))
 
 
 ;; Uncomment the lines below by removing semicolons and play with the
@@ -91,20 +96,16 @@
 
 ;; These settings relate to how emacs interacts with your operating system
 (setq ;; makes killing/yanking interact with the clipboard
- x-select-enable-clipboard t
+ select-enable-clipboard t
 
  ;; I'm actually not sure what this does but it's recommended?
- x-select-enable-primary t
+ select-enable-primary t
 
  ;; Save clipboard strings into kill ring before replacing them.
  ;; When one selects something in another program to paste it into Emacs,
  ;; but kills something in Emacs before actually pasting it,
  ;; this selection is gone unless this variable is non-nil
  save-interprogram-paste-before-kill t
-
- ;; Shows all options when running apropos. For more info,
- ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Apropos.html
- apropos-do-all t
 
  ;; force horizontal split for temp buffers  (top an bottom)
  ;; change to zero (0) for vertical split.

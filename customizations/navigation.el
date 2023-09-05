@@ -67,7 +67,6 @@
   :init
   (setq magit-completing-read-function 'magit-ido-completing-read))
 
-
 ;; optional if you want which-key integration
 (use-package which-key
   :ensure t
@@ -104,45 +103,6 @@
                                                    :face 'font-lock-keyword-face)))
   :config
   (dashboard-setup-startup-hook))
-
-
-;; from https://clojure-lsp.io/clients/
-(use-package lsp-mode
-  :ensure t
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :hook ((clojure-mode . lsp)
-         (clojurec-mode . lsp)
-         (clojurescript-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :config
-  (dolist (m '(clojure-mode
-               clojurec-mode
-               clojurescript-mode
-               clojurex-mode))
-    (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
-  ;;(setq lsp-lens-enable t)
-  (setq
-   lsp-ui-doc-enable nil       ;; disable all doc popups
-   lsp-ui-sideline-enable nil  ;; disable sideline bar for less distraction
-   treemacs-space-between-root-nodes nil) ;; no spacing in treemacs views
-
-
-  :commands lsp)
-
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode
-  :init (progn
-          (setq lsp-ui-sideline-show-code-actions nil))
-  :config
-  (progn
-    (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
-
-(use-package lsp-treemacs
-  :after (:all treemacs lsp-mode)
-  :commands lsp-treemacs-errors-list)
 
 
 (defun keypad-recenter (arg)
@@ -190,14 +150,12 @@
 (use-package treemacs
   :ensure t
   :init
-  (progn
-    (setq treemacs-space-between-root-nodes        t
-          treemacs-wide-toggle-width               60
-          treemacs-width                           40
-          treemacs-project-follow-mode             t)
-    ;; (with-eval-after-load 'winum
-    ;;   (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-    )
+  (setq treemacs-space-between-root-nodes        t
+        treemacs-wide-toggle-width               60
+        treemacs-width                           40
+        treemacs-project-follow-mode             t)
+  ;; (with-eval-after-load 'winum
+  ;;   (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
   :config
   (progn
     ;; The default width and height of the icons is 22 pixels. If you are

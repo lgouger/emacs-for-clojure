@@ -19,9 +19,6 @@
 ;; Highlights matching parenthesis
 (show-paren-mode 1)
 
-;; Highlight current line
-(global-hl-line-mode 1)
-
 ;; load the desired interactive mode
 (load "editing-ido.el")
 
@@ -87,7 +84,7 @@
 ;; (global-set-key (kbd "<M-SPC>") 'cycle-spacing)
 
 ;; The following works if Spotlight key moved elsewhere
-(global-set-key (kbd "<s-SPC>") 'cycle-spacing) 
+(global-set-key (kbd "<s-SPC>") 'cycle-spacing)
 
 ;; multiple-cursor support
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -137,7 +134,41 @@
   :bind
   (:map global-map
         ("C-c i" . string-inflection-all-cycle)
-        ("C-c c" . string-inflection-camelcase)
         ("C-c p" . string-inflection-python-style-cycle)
+        ("C-c c" . string-inflection-camelcase)
+        ("C-c k" . string-inflection-kebab-case)
+        ("C-c u" . string-inflection-underscore)
         ("C-c j" . string-inflection-java-style-cycle)))
+
+(defun my-string-inflection-cycle-auto ()
+  "switch inflection-cycling based on major-mode"
+    (interactive)
+    (cond
+     ;; for ruby-mode
+     ;; (foo_bar => FOO_BAR => FooBar => foo_bar)
+     ((eq major-mode 'ruby-mode)
+      (string-inflection-ruby-style-cycle))
+     ;; for java
+     ;; (fooBar  => FOO_BAR => FooBar => fooBar)
+     ((eq major-mode 'java-mode)
+      (string-inflection-java-style-cycle))
+     ;; for python
+     ;; (foo_bar => FOO_BAR => FooBar => foo_bar)
+     ((eq major-mode 'python-mode)
+      (string-inflection-python-style-cycle))
+     ;; for elixir
+     ;; (foo_bar => FooBar => foo_bar)
+     ((eq major-mode 'elixir-mode)
+      (string-inflection-elixir-style-cycle))
+     (t
+      ;; default
+      ;; (foo_bar => FOO_BAR => FooBar => fooBar => foo-bar => Foo_Bar => foo_bar)
+      (string-inflection-all-cycle))))
+
+;; embrace -- a mode to assist with wrapping expressions
+(use-package embrace
+  :ensure t
+  :bind
+  (:map global-map
+        ("C-," . embrace-commander)))
 

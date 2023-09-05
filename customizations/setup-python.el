@@ -109,19 +109,20 @@
   (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
 
 (use-package python
-  :ensure nil
-  :after (elpy
-          py-autopep8)
+  :ensure t
+  ;; :after (elpy
+  ;;         py-autopep8)
+  :hook (python-mode . eglot-ensure)
   :bind (:map python-mode-map
               ("C-<return>" . electric-newline-and-maybe-indent)
               ("M-<return>" . electric-newline-and-maybe-indent)
               ("C-/" . comment-or-uncomment-region)))
 
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp))))
+;; (use-package lsp-pyright
+;;   :ensure t
+;;   :hook (python-mode . (lambda ()
+;;                           (require 'lsp-pyright)
+;;                           (lsp))))
 
 (provide 'setup-python)
 ;;; setup-python.el ends here
