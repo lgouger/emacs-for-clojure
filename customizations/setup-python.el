@@ -6,11 +6,11 @@
 
 ;;; Code:
 
-;; (defun flycheck-in-elpy-hook ()
-;;   "When present enable flycheck mode."
-;;   (when (require 'flycheck nil t)
-;;     (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-;;     (add-hook 'elpy-mode-hook #'flycheck-mode)))
+(defun flycheck-in-elpy-hook ()
+  "When present enable flycheck mode."
+  (when (require 'flycheck nil t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook #'flycheck-mode)))
 
 (use-package py-autopep8
   :ensure t)
@@ -29,11 +29,11 @@
   ;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
   (elpy-enable))
 
-(use-package python-black
-  :ensure t
-  :demand t
-  :after python
-  :hook (python-mode . python-black-on-save-mode-enable-dwim))
+;; (use-package python-black
+;;   :ensure t
+;;   :demand t
+;;   :after python
+;;   :hook (python-mode . python-black-on-save-mode-enable-dwim))
 
 
 ;; (defun find-pipenv-venv-at (directory)
@@ -98,31 +98,31 @@
 ;;     )
 ;;   )
 
-(use-package poetry
-  :ensure t
-  :after (python))
-
-(use-package pipenv
-  :ensure t
-  :hook (python-mode . pipenv-mode)
-  :init
-  (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
+;; (use-package poetry
+;;   :ensure t
+;;   :after (python))
+;
+;(use-package pipenv
+;  :ensure t
+;  :hook (python-mode . pipenv-mode)
+;  :init
+;  (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
 
 (use-package python
   :ensure t
-  ;; :after (elpy
-  ;;         py-autopep8)
-  :hook (python-mode . eglot-ensure)
-  :bind (:map python-mode-map
+  :hook ((python-ts-mode . eglot-ensure)
+         (python-ts-mode . company-mode))
+  :bind (:map python-ts-mode-map
               ("C-<return>" . electric-newline-and-maybe-indent)
               ("M-<return>" . electric-newline-and-maybe-indent)
-              ("C-/" . comment-or-uncomment-region)))
+              ("C-/" . comment-or-uncomment-region))
+  :mode (("\\.p\\'" . python-ts-mode)))
 
-;; (use-package lsp-pyright
-;;   :ensure t
-;;   :hook (python-mode . (lambda ()
-;;                           (require 'lsp-pyright)
-;;                           (lsp))))
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-ts-mode . (lambda ()
+                            (require 'lsp-pyright)
+                          (lsp))))
 
 (provide 'setup-python)
 ;;; setup-python.el ends here

@@ -19,7 +19,14 @@
 ;;               ("M-<return>" . clerk-show)))
 
 (use-package clojure-ts-mode
-  :ensure t)
+  :ensure t
+  :hook
+  ((clojure-mode . eldoc-mode)
+   (clojure-mode . enable-paredit-mode)
+   (clojure-mode . rainbow-delimiters-mode)
+   (clojure-mode . subword-mode)
+   (clojure-mode . eglot-ensure))
+  )
 
 
 (use-package clj-refactor

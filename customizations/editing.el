@@ -20,7 +20,7 @@
 (show-paren-mode 1)
 
 ;; load the desired interactive mode
-(load "editing-ido.el")
+(load "editing-vertico.el")
 
 ;; company mode -- Company is a text completion framework for Emacs
 (use-package company
@@ -101,12 +101,12 @@
 (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 
 ;; comments
-(defun toggle-comment-on-line ()
-  "comment or uncomment current line"
-  (interactive)
-  (comment-or-uncomment-region (line-beginning-position) (line-end-position)))
+;; (defun toggle-comment-on-line ()
+;;   "comment or uncomment current line"
+;;   (interactive)
+;;   (comment-or-uncomment-region (line-beginning-position) (line-end-position)))
 
-(global-set-key (kbd "C-;") 'toggle-comment-on-line)
+;; (global-set-key (kbd "C-;") 'toggle-comment-on-line)
 
 (global-set-key (kbd "M-C-q") 'indent-sexp)
 

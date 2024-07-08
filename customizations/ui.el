@@ -7,7 +7,10 @@
 ;; Show line numbers
 (global-display-line-numbers-mode)
 
-(global-diff-hl-mode)
+(use-package diff-hl
+  :ensure t
+  :config
+  (global-diff-hl-mode))
 
 ;; Highlight current line
 (global-hl-line-mode 1)

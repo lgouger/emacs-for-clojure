@@ -8,9 +8,8 @@
   (setq
    package-enable-at-startup nil
    package-archives
-   '(("melpa-stable" . "http://stable.melpa.org/packages/")
-     ("melpa"        . "http://melpa.org/packages/")
-     ("gnu"          . "http://elpa.gnu.org/packages/") ))
+   '(("melpa-stable" . "https://stable.melpa.org/packages/")
+     ("melpa"        . "https://melpa.org/packages/")))
 
   (unless (boundp 'package-pinned-packages)
     (setq package-pinned-packages ())))
@@ -46,9 +45,12 @@
         ;; Modular in-buffer completion framework for Emacs. http://company-mode.github.io
         company
 
+        ;; completion:  tried ivy, ido, and helm
+        vertico
+
         ;; trying out Language Server Protocol mode
-        lsp-mode
-        lsp-python-ms
+        ;; lsp-mode
+        ;; lsp-python-ms
 
         ;; linting of languages
         flycheck
@@ -71,7 +73,7 @@
 	;; Python mode
         elpy
         py-autopep8
-        pipenv
+        ;; pipenv
 
 	;; Enhances M-x to allow easier execution of commands. Provides
 	;; a filterable list of possible commands in the minibuffer
@@ -79,7 +81,7 @@
         ;; smex
 
 	;; edit html tags like sexps
-        tagedit
+        ;; tagedit
 
 	;; git integration
         magit
@@ -95,9 +97,6 @@
 
         ;; groovy editing
         groovy-mode
-
-        ;; Julia
-        ;; julia-mode
 
 	;; Terraform and HCL
         hcl-mode
@@ -198,7 +197,7 @@
 ;; (load "setup-perl.el")
 (load "setup-python.el")
 
-(load "setup-rust.el")
+;; (load "setup-rust.el")
 
 
 (custom-set-variables
@@ -292,7 +291,7 @@
       (path-separator . ":")
       (null-device . "/dev/null"))))
  '(package-selected-packages
-   '(clojure-ts-mode rust-mode git-gutter+ eglot embrace treemacs-icons-dired diff-hl keycast julia-mode string-inflection python-black poetry winum flx-ido groovy-mode ob-async ob-graphql ob-rust ob-typescript typescript tide clj-refactor flycheck-clj-kondo ox-reveal ox-md lorem-ipsum ido-yes-or-no rg counsel mysql-to-org ob-sql-mode company-restclient ob-restclient restclient crm-custom amx jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight base16-theme)))
+   '(python-ts-mode clojure-ts-mode rust-mode git-gutter+ eglot embrace treemacs-icons-dired diff-hl keycast julia-mode string-inflection python-black poetry winum flx-ido groovy-mode ob-async ob-graphql ob-rust ob-typescript tide clj-refactor flycheck-clj-kondo ox-reveal ox-md lorem-ipsum ido-yes-or-no rg counsel mysql-to-org ob-sql-mode company-restclient ob-restclient restclient crm-custom amx jetbrains-darcula-theme yaml-mode which-key use-package terraform-mode tagedit spinner spaceline-all-the-icons smex sesman rainbow-delimiters py-autopep8 projectile pipenv paredit org-bullets ob-kotlin ob-http ob-go magit kotlin-mode json-mode inf-clojure helm flycheck exec-path-from-shell elpy diminish delight base16-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -45,12 +45,8 @@
 (setq org-link-elisp-confirm-function 'y-or-n-p)
 (setq org-log-done 'time)
  
-(require 'ox-md)
-(require 'ox-reveal)
-(require 'ob-async)
-
-(when (version<= "9.2" (org-version))
-    (require 'org-tempo))
+;; (require ox-md)
+;; (require ox-reveal)
 
 (eval-after-load 'org
   (lambda()
@@ -58,11 +54,10 @@
     (require 'org)
     (require 'ob-restclient)
     (require 'ob-sql)
-    (require 'org-tempo)
-    (require 'cider)
+
     ;; (require 'flycheck)
     ;; (require 'ob-clojure)
-    (require 'ob-babashka)
+
     ;; (require 'ob-clojure-literate)
     ;; (setq org-babel-clojure-backend 'cider)
 

@@ -1,12 +1,13 @@
 
 
-(require 'flx-ido)
-
 ;; Define he following variables to remove the compile-log warnings
 ;; when defining ido-ubiquitous
 (defvar ido-cur-item nil)
 (defvar ido-default-item nil)
 (defvar ido-cur-list nil)
+
+(use-package flx-ido
+  :ensure t)
 
 ;; ido-mode allows you to more easily navigate choices. For example,
 ;; when you want to switch buffers, ido presents you with a list

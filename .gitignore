@@ -4,6 +4,7 @@ amx-items
 .cache/
 transient/
 elpa/
+history
 places
 .recentf
 ido.last
@@ -18,3 +19,6 @@ network-security.data
 .lsp-session-v1
 .org-id-locations
 url/
+eln-cache/
+elpy/rpc-venv/
+tree-sitter/*.dylib
