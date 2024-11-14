@@ -22,38 +22,6 @@
 ;; load the desired interactive mode
 (load "editing-vertico.el")
 
-;; company mode -- Company is a text completion framework for Emacs
-(use-package company
-  :ensure t
-  :diminish
-  :bind (:map company-active-map
-              ("C-n" . company-select-next)
-              ("C-p" . company-select-previous))
-  :config
-  (setq company-idle-delay 0.5)
-  (setq company-show-quick-access t)
-  (setq company-tooltip-limit 10)
-  (setq company-minimum-prefix-length 2)
-  (setq company-tooltip-align-annotations t)
-  ;; invert the navigation direction if the the completion popup-isearch-match
-  ;; is displayed on top (happens near the bottom of windows)
-  (setq company-tooltip-flip-when-above t)
-  (global-company-mode t))
-
-(use-package company-box
-  :ensure t
-  :after company
-  :diminish
-  :hook (company-mode . company-box-mode))
-
-(require 'hi-lock)
-(defun toggle-mark-word-at-point ()
-  (interactive)
-  (if hi-lock-interactive-patterns
-      (unhighlight-regexp (car (car hi-lock-interactive-patterns)))
-    (highlight-symbol-at-point)))
-
-(global-set-key (kbd "s-.") 'toggle-mark-word-at-point)
 
 
 ;; Don't use hard tabs

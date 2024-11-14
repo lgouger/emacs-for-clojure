@@ -30,8 +30,8 @@
 
 ;; swap the default modifier keys
 (when (eq system-type 'darwin)
-  ;; (set-face-attribute 'default nil :family "JetBrains Mono" :height 200)
-  (set-face-attribute 'default nil :family "Hack" :height 200)
+  (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font" :height 200)
+  ;; (set-face-attribute 'default nil :family "Hasklug Nerd Font" :height 200)
   )
 
 (setq scroll-preserve-screen-position t)
@@ -89,7 +89,6 @@
   :config
   (setq powerline-default-separator 'utf-8)
   (spaceline-emacs-theme))
-
 
 ;; (use-package keycast
 ;;   :init

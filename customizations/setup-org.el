@@ -46,15 +46,20 @@
 (setq org-log-done 'time)
  
 ;; (require ox-md)
-;; (require ox-reveal)
+;; (require ox-reveal) 
 
 (eval-after-load 'org
   (lambda()
     ;; Clojure in orgmode stuff
     (require 'org)
+    (require 'ob-async)
+
     (require 'ob-restclient)
     (require 'ob-sql)
 
+    (require 'org-tempo)
+
+    (require 'ox-gfm)
     ;; (require 'flycheck)
     ;; (require 'ob-clojure)
 

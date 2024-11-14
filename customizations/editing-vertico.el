@@ -2,6 +2,9 @@
 ;; Enable vertico
 (use-package vertico
   :ensure t
+  :custom
+  (vertico-cycle t)
+  
   :init
   (vertico-mode)
 
@@ -27,6 +30,7 @@
 
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
+  :after vertico
   :ensure t
   ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
   ;; available in the *Completions* buffer, add it to the
@@ -36,10 +40,6 @@
 
   ;; The :init section is always executed.
   :init
-
-  ;; Marginalia must be activated in the :init section of use-package such that
-  ;; the mode gets enabled right away. Note that this forces loading the
-  ;; package.
   (marginalia-mode))
 
 
@@ -85,3 +85,8 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
+
+(use-package nerd-icons-completion
+  :ensure t
+  :config
+  (nerd-icons-completion-mode))

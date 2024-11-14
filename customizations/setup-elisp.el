@@ -21,5 +21,18 @@
 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
 (add-hook 'ielm-mode-hook #'enable-paredit-mode)
 
+(add-hook 'lisp-mode-hook #'eglot-ensure)
+(add-hook 'emacs-lisp-mode-hook #'eglot-ensure)
+(add-hook 'lisp-interaction-mode-hook #'eglot-ensure)
+(add-hook 'eval-expression-minibuffer-setup-hook #'eglot-ensure)
+(add-hook 'ielm-mode-hook #'eglot-ensure)
+
+(add-hook 'lisp-mode-hook #'company-mode)
+(add-hook 'emacs-lisp-mode-hook #'company-mode)
+(add-hook 'lisp-interaction-mode-hook #'company-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook #'company-mode)
+(add-hook 'ielm-mode-hook #'company-mode)
+
+
 (provide 'setup-elisp)
 ;;; setup-elisp.el ends here

@@ -3,13 +3,6 @@
 
 (setq default-directory (getenv "HOME"))
 
-(use-package xref
-  :ensure t)
-
-(use-package flycheck
-  :ensure t
-  :config (global-flycheck-mode))
-
 ;; "When several buffers visit identically-named files,
 ;; Emacs must give the buffers distinct names. The usual method
 ;; for making buffer names unique adds ‘<2>’, ‘<3>’, etc. to the end
@@ -56,16 +49,6 @@
 ;; Prevent Control-Z from hiding the window, use C-x C-z
 (global-unset-key (kbd "C-z"))
 
-;; comment-and-uncomment region on C-/
-(global-set-key (kbd "C-/") 'comment-or-uncomment-region)
-
-
-(use-package magit
-  :ensure t
-  :bind
-  ("C-x g" . magit-status)
-  :init
-  (setq magit-completing-read-function 'magit-ido-completing-read))
 
 ;; optional if you want which-key integration
 (use-package which-key
@@ -73,15 +56,6 @@
   :config
   (which-key-mode))
 
-(use-package projectile
-  :ensure t
-  :init
-  (setq projectile-project-search-path '(("~/src/python" . 1) ("~/src/clojure" . 1)
-                                         ("~/git/ghe" . 2) ("~/git/github" . 2)))
-  :config
-  (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
-  ;; projectile everywhere!
-  (projectile-mode +1))
 
 (use-package dashboard
   :ensure t
@@ -98,9 +72,9 @@
     ;;                               (bookmarks . "book")))
     (setq dashboard-startup-banner 'logo)
     (setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
-                                                   :height 1.1
-                                                   :v-adjust -0.05
-                                                   :face 'font-lock-keyword-face)))
+                                                       :height 1.1
+                                                       :v-adjust -0.05
+                                                       :face 'font-lock-keyword-face)))
   :config
   (dashboard-setup-startup-hook))
 
@@ -149,35 +123,85 @@
 
 (use-package treemacs
   :ensure t
-  :init
-  (setq treemacs-space-between-root-nodes        t
-        treemacs-wide-toggle-width               60
-        treemacs-width                           40
-        treemacs-project-follow-mode             t)
-  ;; (with-eval-after-load 'winum
-  ;;   (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :defer t
   :config
   (progn
+    (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+          treemacs-deferred-git-apply-delay        0.5
+          treemacs-directory-name-transformer      #'identity
+          treemacs-display-in-side-window          t
+          treemacs-eldoc-display                   'simple
+          treemacs-file-event-delay                2000
+          treemacs-file-extension-regex            treemacs-last-period-regex-value
+          treemacs-file-follow-delay               0.2
+          treemacs-file-name-transformer           #'identity
+          treemacs-follow-after-init               t
+          treemacs-expand-after-init               t
+          treemacs-find-workspace-method           'find-for-file-or-pick-first
+          treemacs-git-command-pipe                ""
+          treemacs-goto-tag-strategy               'refetch-index
+          treemacs-header-scroll-indicators        '(nil . "^^^^^^")
+          treemacs-hide-dot-git-directory          t
+          treemacs-indentation                     2
+          treemacs-indentation-string              " "
+          treemacs-is-never-other-window           nil
+          treemacs-max-git-entries                 5000
+          treemacs-missing-project-action          'ask
+          treemacs-move-files-by-mouse-dragging    t
+          treemacs-move-forward-on-expand          nil
+          treemacs-no-png-images                   nil
+          treemacs-no-delete-other-windows         t
+          treemacs-project-follow-cleanup          nil
+          treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+          treemacs-position                        'left
+          treemacs-read-string-input               'from-child-frame
+          treemacs-recenter-distance               0.1
+          treemacs-recenter-after-file-follow      nil
+          treemacs-recenter-after-tag-follow       nil
+          treemacs-recenter-after-project-jump     'always
+          treemacs-recenter-after-project-expand   'on-distance
+          treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+          treemacs-project-follow-into-home        nil
+          treemacs-show-cursor                     nil
+          treemacs-show-hidden-files               t
+          treemacs-silent-filewatch                nil
+          treemacs-silent-refresh                  nil
+          treemacs-sorting                         'alphabetic-asc
+          treemacs-select-when-already-in-treemacs 'move-back
+          treemacs-space-between-root-nodes        t
+          treemacs-tag-follow-cleanup              t
+          treemacs-tag-follow-delay                1.5
+          treemacs-text-scale                      nil
+          treemacs-user-mode-line-format           nil
+          treemacs-user-header-line-format         nil
+          treemacs-wide-toggle-width               70
+          treemacs-width                           35
+          treemacs-width-increment                 1
+          treemacs-width-is-initially-locked       t
+          treemacs-workspace-switch-cleanup        nil)
+
     ;; The default width and height of the icons is 22 pixels. If you are
     ;; using a Hi-DPI display, uncomment this to double the icon size.
-    ;; (treemacs-resize-icons 22)
+    ;;(treemacs-resize-icons 44)
 
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)
     (treemacs-fringe-indicator-mode 'always)
-    (treemacs-hide-gitignored-files-mode nil)
+    (when treemacs-python-executable
+      (treemacs-git-commit-diff-mode t))
 
     (pcase (cons (not (null (executable-find "git")))
                  (not (null treemacs-python-executable)))
       (`(t . t)
        (treemacs-git-mode 'deferred))
       (`(t . _)
-       (treemacs-git-mode 'simple))))
+       (treemacs-git-mode 'simple)))
+
+    (treemacs-hide-gitignored-files-mode nil))
   :bind
   (:map global-map
         ([f8]        . treemacs)
         ("C-<f8>"    . treemacs-select-window)
-        ;; ("M-0"       . treemacs-select-window)
         ("C-x t 1"   . treemacs-delete-other-windows)
         ("C-x t t"   . treemacs)
         ("C-x t d"   . treemacs-select-directory)
@@ -185,9 +209,6 @@
         ("C-x t C-t" . treemacs-find-file)
         ("C-x t M-t" . treemacs-find-tag)))
 
-;; (use-package treemacs-evil
-;;   :after (treemacs evil)
-;;   :ensure t)
 
 (use-package treemacs-projectile
   :after (treemacs projectile)

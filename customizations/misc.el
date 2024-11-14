@@ -41,3 +41,11 @@
   (define-key lorem-ipsum-map (kbd "s") 'lorem-ipsum-insert-sentences)
   (define-key lorem-ipsum-map (kbd "p") 'lorem-ipsum-insert-paragraphs)
   (define-key lorem-ipsum-map (kbd "l") 'lorem-ipsum-insert-list))
+
+(use-package treesit-auto
+  :ensure t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
