@@ -42,8 +42,9 @@
   ;; :pin melpa-stable
   :init (add-hook 'cider-mode-hook #'clj-refactor-mode)
   :bind
-  (:map clojure-mode-map
+  (:map clojure-ts-mode-map
         ("C-`" . 'cider-eval-expression-at-point-in-repl)
+        ("C-~" . 'clojure-toggle-keyword-string)
         ;;        ("M-<return>" . 'cider-clerk-show)
         )
   :hook
